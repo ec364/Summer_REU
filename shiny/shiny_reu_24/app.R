@@ -96,7 +96,8 @@ ui <- fluidPage(theme = shinytheme("cerulean"),
                  and watershed 6 serves as a biogeochemical reference site (Likens, 2013). Watershed 9 has not been exposed to any experiments. Each trap site was
                  located in a different watershed in the forest, and hence exposed to the unique spatial landscapes on each watershed. The data collected by the sticky
                  traps as well as the continuous chemical and physical sampling in Hubbard Brook can help reveal how the distinct environmental traits of each site lead
-                 to changes in aquatic insect emergence.") 
+                 to changes in aquatic insect emergence."),
+                                               img(src = "www/images/Watershed_Location.jpg", height = "400px")
                                       ),
                                       
                                       
