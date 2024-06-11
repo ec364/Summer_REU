@@ -97,8 +97,8 @@ ui <- fluidPage(theme = shinytheme("cerulean"),
                  located in a different watershed in the forest, and hence exposed to the unique spatial landscapes on each watershed. The data collected by the sticky
                  traps as well as the continuous chemical and physical sampling in Hubbard Brook can help reveal how the distinct environmental traits of each site lead
                  to changes in aquatic insect emergence."),
-                                               img(src = "www/images/Watershed_Location.jpg", height = "400px")
-                                      ),
+                                               p(tags$img(src = "Watershed_Location.png", width = "95%", height = "95%")
+                                      )),
                                       
                                       
                                       #### Methods tab ####
