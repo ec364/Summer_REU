@@ -14,7 +14,7 @@ library(bslib)
 
 # Load all necessary data.
 df <- trees # using a built-in R dataset of cherry trees
-sticky <- read.csv("data_raw/sticky_trap_counts.csv")
+#sticky <- read_csv("data_raw/sticky_trap_counts.csv")
 
 # Perform all data transformation needed
 # prior to use in the shiny application here.
@@ -132,7 +132,7 @@ ui <- fluidPage(theme = shinytheme("cerulean"),
                                                
                                                # prints plot generated in server
                                                mainPanel(
-                                                 plotOutput("bugPlot")      
+                                                 plotOutput("stoneflyPlot")      
                                       )
                                       )
                                       ),
@@ -177,13 +177,13 @@ server <- function(input, output) {
       ungroup()
     
     ggplot(agg_data, aes(x = year, y = total_stoneflies)) +
-      geom_line() +  # Use geom_point() if you prefer points
+      geom_point() +  # Use geom_point() if you prefer points
       facet_wrap(~ month, scales = "fixed") +  # Ensure the same scale for all y-axes
       labs(title = "Total Number of Stoneflies by Year and Month",
            x = "Year",
            y = "Total Number of Stoneflies") +
       theme_minimal() +
-      theme(axis.text.x = element_text(angle = 90, hjust = 1))  # Rotate x-axis labels
+      theme(axis.text.x = element_text(angle = 45, hjust = 1))  # Rotate x-axis labels
   })
 }
 

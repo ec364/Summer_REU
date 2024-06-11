@@ -2,6 +2,7 @@
 sticky <- sticky_trap_counts
 chemical <- HBEFdata_All_2024_05_17
 
+view(sticky)
 ####converting date data to date form 
 sticky$date <- as.Date(sticky$date)
 sticky$year <- year(sticky$date)
