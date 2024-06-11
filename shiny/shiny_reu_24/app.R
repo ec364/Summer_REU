@@ -169,6 +169,9 @@ server <- function(input, output) {
   # Creates plot for inclusion on plotting tab.
   output$stoneflyPlot <- renderPlot({
     filtered_data <- sticky %>%
+      # create year and month columns first
+      mutate(year = year(date),
+             month = month(date)) %>%
       filter(year >= input$timeRange[1] & year <= input$timeRange[2])
     
     agg_data <- filtered_data %>%
