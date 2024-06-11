@@ -14,6 +14,7 @@ library(bslib)
 
 # Load all necessary data.
 df <- trees # using a built-in R dataset of cherry trees
+sticky <- read.csv("data_raw/sticky_trap_counts.csv")
 
 # Perform all data transformation needed
 # prior to use in the shiny application here.
@@ -97,23 +98,43 @@ ui <- fluidPage(theme = shinytheme("cerulean"),
                  located in a different watershed in the forest, and hence exposed to the unique spatial landscapes on each watershed. The data collected by the sticky
                  traps as well as the continuous chemical and physical sampling in Hubbard Brook can help reveal how the distinct environmental traits of each site lead
                  to changes in aquatic insect emergence."),
-                                               p(tags$img(src = "Watershed_Location.png", width = "95%", height = "95%")
+                                               p(tags$img(src = "Watershed_Location.png", width = "50%", height = "95%")
                                       )),
                                       
                                       
                                       #### Methods tab ####
                                       tabPanel("Methods"),
+                                      #page break
+                                      br(),
                                       
                                       #### Plotting tab ####
                                       tabPanel("Plot",
-                                               
-                                               # line break
-                                               br(),
+                                      #inserting a slider for year
+                                               sidebarLayout(
+                                                 sidebarPanel(
+                                                   sliderInput("timeRange",
+                                                               "Select the time period:",
+                                                               min = 2019,
+                                                               max = 2023,
+                                                               value = c(2019, 2013),
+                                                               sep = "",
+                                                               step = 1),
+                                                   selectInput("bugType", 
+                                                               "Select Bug Type:",
+                                                               choices = c("Stoneflies" = "stonefly_large", 
+                                                                           "Caddisflies" = "caddisfly_large", 
+                                                                           "Mayflies" = "mayfly_large", 
+                                                                           "Dipteran" = "dipteran_large",
+                                                                           "Other" = "other_large"),
+                                                               selected = "stonefly_large")
+                                                 ),
+                                                
                                                
                                                # prints plot generated in server
-                                               plotOutput(outputId = "practicePlot",
-                                                          width = 500, height = 250)
-                                               
+                                               mainPanel(
+                                                 plotOutput("bugPlot")      
+                                      )
+                                      )
                                       ),
                                       
                                       #### ML Development tab ####
@@ -146,21 +167,29 @@ ui <- fluidPage(theme = shinytheme("cerulean"),
 server <- function(input, output) {
   
   # Creates plot for inclusion on plotting tab.
-  output$practicePlot <- renderPlot({
+  output$stoneflyPlot <- renderPlot({
+    filtered_data <- sticky %>%
+      filter(year >= input$timeRange[1] & year <= input$timeRange[2])
     
-    ggplot(df, aes(x = Girth, y = Height, color = Volume)) +
-      geom_point(size = 5, alpha = 0.8) +
-      labs(x = "Diameter (in)",
-           y = "Height (ft)",
-           color = "Volume (cubic ft)") +
-      scale_color_viridis() +
-      theme_bw()
+    agg_data <- filtered_data %>%
+      group_by(year, month) %>%
+      summarise(total_stoneflies = sum(stonefly_large, na.rm = TRUE)) %>%
+      ungroup()
     
+    ggplot(agg_data, aes(x = year, y = total_stoneflies)) +
+      geom_line() +  # Use geom_point() if you prefer points
+      facet_wrap(~ month, scales = "fixed") +  # Ensure the same scale for all y-axes
+      labs(title = "Total Number of Stoneflies by Year and Month",
+           x = "Year",
+           y = "Total Number of Stoneflies") +
+      theme_minimal() +
+      theme(axis.text.x = element_text(angle = 90, hjust = 1))  # Rotate x-axis labels
   })
-  
 }
 
 #### Bind UI & Server ####
+
+ 
 
 # Run the application 
 shinyApp(ui = ui, server = server)
