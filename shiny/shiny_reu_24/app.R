@@ -14,8 +14,8 @@ library(bslib)
 
 # Load all necessary data.
 df <- trees # using a built-in R dataset of cherry trees
-#sticky <- read_csv("data_raw/sticky_trap_counts.csv")
-
+sticky <- read_csv("data_raw/sticky_trap_counts.csv")
+sticky2 <- sticky
 # Perform all data transformation needed
 # prior to use in the shiny application here.
 
@@ -103,7 +103,16 @@ ui <- fluidPage(theme = shinytheme("cerulean"),
                                       
                                       
                                       #### Methods tab ####
-                                      tabPanel("Methods"),
+                                      tabPanel("Methods", 
+                                               h3("In field collection"),
+                                               p(class = "indented-paragraph", "Insects were collected weekly from watersheds labeled 1,2,3,4,5,6, 9, and Hubbard Brook 
+                                               (Edwards, 2022). The double sided sticky traps were 4” x 7”. At each collection site, 
+                                               five sticky traps were spread across a 20m long section. The traps were attached to tree 
+                                               branches along a stream in each watershed (Edwards, 2022). Once collected, sticky traps 
+                                               were placed inside a plastic page protector and shipped to the Bernhardt Lab for identification."),
+                                               #note to self, i should add an image here
+                                               h3("Insect Identification "),
+                                               p(class = "indented-paragraph", "At the Bernhardt Lab, insects were identified using dissecting microscopes and a color coding system (Edwards, 2022). Insects were labeled by the categories: Terrestrial Diptera, Aquatic Diptera, Caddisflies, Mayflies, Stoneflies, or Other. Insects were also labeled for their size, with “Small” insects composing of bodies less than 5mm and “Large” insects composing of bodies greater than 5mm. Marks were made directly on the sheet, with different colors representing different orders and different shapes (dash or circle) representing different sizes. Count of each order and size is tallied up and marked on the side of the paper protector. Information about each trap was uploaded to the hbwater database. ")),
                                       #page break
                                       br(),
                                       
@@ -180,7 +189,7 @@ server <- function(input, output) {
       ungroup()
     
     ggplot(agg_data, aes(x = year, y = total_stoneflies)) +
-      geom_point() +  # Use geom_point() if you prefer points
+      geom_line() +  # Use geom_point() if you prefer points
       facet_wrap(~ month, scales = "fixed") +  # Ensure the same scale for all y-axes
       labs(title = "Total Number of Stoneflies by Year and Month",
            x = "Year",
