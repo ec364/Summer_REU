@@ -128,7 +128,8 @@ ui <- fluidPage(theme = shinytheme("cerulean"),
                                                                value = c(2019, 2013),
                                                                sep = "",
                                                                step = 1),
-                                                   selectInput("bugType", 
+                                                   #chosing bug type
+                                                   checkboxGroupInput("bugType", 
                                                                "Select Bug Type:",
                                                                choices = c("Stoneflies" = "stonefly_large", 
                                                                            "Caddisflies" = "caddisfly_large", 
@@ -183,13 +184,17 @@ server <- function(input, output) {
              month = month(date)) %>%
       filter(year >= input$timeRange[1] & year <= input$timeRange[2])
     
+    #bug input aggreg
     agg_data <- filtered_data %>%
+      rowwise() %>%
+      mutate(total_bug = sum(c_across(all_of(input$bugType)))) %>%
       group_by(year, month) %>%
-      summarise(total_stoneflies = sum(stonefly_large, na.rm = TRUE)) %>%
+      summarise(total_bug = sum(total_bug, na.rm = TRUE)) %>%
       ungroup()
     
-    ggplot(agg_data, aes(x = year, y = total_stoneflies)) +
-      geom_line() +  # Use geom_point() if you prefer points
+    #plotting the graph 
+    ggplot(agg_data, aes(x = year, y = total_bug)) +
+      geom_point() +  
       facet_wrap(~ month, scales = "fixed") +  # Ensure the same scale for all y-axes
       labs(title = "Total Number of Stoneflies by Year and Month",
            x = "Year",
