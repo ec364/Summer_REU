@@ -52,6 +52,8 @@ ui <- fluidPage(theme = shinytheme("cerulean"),
                                       #### Introduction tab ####        
                                       tabPanel("Introduction",
                                                h3("What is Aquatic Insect Emergence and Why is it Important?"),
+                                               p(tags$img(src = "nutrients.png", width = "30%", height = "30%", style="float:right")
+                                               ),
                                                #this is tutorial code: p(class = "indented-paragraph", "attempt", tags$a(href = "https://www.youtube.com", "link"), "one"),
                                                p(class = "indented-paragraph","In some species of aquatic insects, 
                  life cycles are divided between a larval stage in an aquatic environment 
@@ -79,12 +81,16 @@ ui <- fluidPage(theme = shinytheme("cerulean"),
                  result in a phenological mismatch between the emergence of aquatic insects and their terrestrial predators, leading to an overall 
                  decrease in the transfer of nutrients to the terrestrial ecosystem. One such nutrient is essential fatty acids that can only be 
                  found in aquatic insects, who accumulate the fatty acids from their algae rich diets",
+                                                 #this is the start to a new paragraph 
                                                  tags$a(href = "https://linkinghub.elsevier.com/retrieve/pii/S0960982222001191", "(Shipley et al., 2022)."),
                                                  "Since these fatty 
                  acids can be crucial for the development of some terrestrial predators, the misalignment between insect life cycles and 
                  terrestrial predators can lead to an overall decrease in survival fitness for some terrestrial species",
-                                                 tags$a(href = "https://linkinghub.elsevier.com/retrieve/pii/S0960982222001191", "(Shipley et al., 2022).")),
+                                                 tags$a(href = "https://linkinghub.elsevier.com/retrieve/pii/S0960982222001191", "(Shipley et al., 2022)."),
+                                                 ),
                                                h3("Collecting Aquatic Insects in Hubbard Brook "),
+                                               p(tags$img(src = "Watershed_Location.png", width = "50%", height = "95%", style="float:left"),
+                                               ),
                                                p(class = "indented-paragraph", "Located in the White Mountains of New Hampshire, the Hubbard Brook Experimental Forest has been the host site of
                  continuous water chemistry monitoring since 1963 (Edwards, 2022). In 2018, researchers began collecting the sticky traps records of aquatic insects
                  above eight different streams in the Hubbard Brook Experimental Forest. Five double sided sticky traps collected weekly were attached to a tree branch
@@ -97,22 +103,32 @@ ui <- fluidPage(theme = shinytheme("cerulean"),
                  and watershed 6 serves as a biogeochemical reference site (Likens, 2013). Watershed 9 has not been exposed to any experiments. Each trap site was
                  located in a different watershed in the forest, and hence exposed to the unique spatial landscapes on each watershed. The data collected by the sticky
                  traps as well as the continuous chemical and physical sampling in Hubbard Brook can help reveal how the distinct environmental traits of each site lead
-                 to changes in aquatic insect emergence."),
-                                               p(tags$img(src = "Watershed_Location.png", width = "50%", height = "95%")
-                                      )),
+                 to changes in aquatic insect emergence.")
+                                               ),
                                       
                                       
                                       #### Methods tab ####
                                       tabPanel("Methods", 
                                                h3("In field collection"),
-                                               p(class = "indented-paragraph", "Insects were collected weekly from watersheds labeled 1,2,3,4,5,6, 9, and Hubbard Brook 
+                                               p(tags$img(src = "trap_location.png", width = "30%", height = "30%", style="float:right")
+                                               ),
+                                               p(class = "indented-paragraph", "Insects were collected weekly from watersheds labeled 1, 2, 3, 4, 5, 6, 9, and Hubbard Brook 
                                                (Edwards, 2022). The double sided sticky traps were 4” x 7”. At each collection site, 
                                                five sticky traps were spread across a 20m long section. The traps were attached to tree 
                                                branches along a stream in each watershed (Edwards, 2022). Once collected, sticky traps 
                                                were placed inside a plastic page protector and shipped to the Bernhardt Lab for identification."),
-                                               #note to self, i should add an image here
                                                h3("Insect Identification "),
-                                               p(class = "indented-paragraph", "At the Bernhardt Lab, insects were identified using dissecting microscopes and a color coding system (Edwards, 2022). Insects were labeled by the categories: Terrestrial Diptera, Aquatic Diptera, Caddisflies, Mayflies, Stoneflies, or Other. Insects were also labeled for their size, with “Small” insects composing of bodies less than 5mm and “Large” insects composing of bodies greater than 5mm. Marks were made directly on the sheet, with different colors representing different orders and different shapes (dash or circle) representing different sizes. Count of each order and size is tallied up and marked on the side of the paper protector. Information about each trap was uploaded to the hbwater database. ")),
+                                               p(tags$img(src = "annotated_trap.png", width = "30%", height = "30%", style = "float:right")
+                                               ),
+                                               p(class = "indented-paragraph", "At the Bernhardt Lab, insects were identified using dissecting 
+                                                 microscopes and a color coding system (Edwards, 2022). Insects were labeled by the categories: 
+                                                 Terrestrial Diptera, Aquatic Diptera, Caddisflies, Mayflies, Stoneflies, or Other. Insects 
+                                                 were also labeled for their size, with “Small” insects composing of bodies less than 5mm 
+                                                 and “Large” insects composing of bodies greater than 5mm. Marks were made directly on the sheet
+                                                 , with different colors representing different orders and different shapes (dash or circle) 
+                                                 representing different sizes. Count of each order and size is tallied up and marked on the side
+                                                 of the paper protector. Information about each trap was uploaded to the hbwater database. "),
+                                              ),
                                       #page break
                                       br(),
                                       
@@ -186,10 +202,8 @@ server <- function(input, output) {
     
     #bug input aggreg
     agg_data <- filtered_data %>%
-      rowwise() %>%
-      mutate(total_bug = sum(c_across(all_of(input$bugType)))) %>%
       group_by(year, month) %>%
-      summarise(total_bug = sum(total_bug, na.rm = TRUE)) %>%
+     summarise(total_bug = sum(input$bugType), na.rm = TRUE) %>%
       ungroup()
     
     #plotting the graph 
