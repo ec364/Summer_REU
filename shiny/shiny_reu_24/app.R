@@ -189,7 +189,7 @@ ui <- fluidPage(theme = shinytheme("cerulean"),
 
 #### Server ####
 
-# Define server logic required to draw a histogram
+# Define server logic required to generate figures
 server <- function(input, output) {
   
   # Creates plot for inclusion on plotting tab.
@@ -200,10 +200,25 @@ server <- function(input, output) {
              month = month(date)) %>%
       filter(year >= input$timeRange[1] & year <= input$timeRange[2])
     
+    # set the list of chosen insects to the new variable "chosenBugs"
+    chosenBugs <- input$bugType
+    
     #bug input aggreg
     agg_data <- filtered_data %>%
+      # first need to pivot data from wide format to long format
+      # pivoting the dipteran_large through other_small columns
+      # column names will appear in one column and values in another
+      pivot_longer(cols = dipteran_large:other_small, 
+                   names_to = "taxa", # names the new names column
+                   values_to = "count") %>% # names the new values column
+      # there will be lots of NAs, but that's alright, that just means
+      # that none of those insects were counted for that trap
+      # now we can filter by chosen insect inputs
+      filter(taxa %in% chosenBugs) %>%
+      # group by every month of each year
       group_by(year, month) %>%
-     summarise(total_bug = sum(input$bugType), na.rm = TRUE) %>%
+      # and finally sum all of the chosen insect counts, omitting NAs
+      summarise(total_bug = sum(count, na.rm = TRUE)) %>%
       ungroup()
     
     #plotting the graph 
