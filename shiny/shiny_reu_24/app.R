@@ -57,49 +57,32 @@ ui <- fluidPage(theme = shinytheme("cerulean"),
                                       
                               #### Introduction tab ####        
                               tabPanel("Introduction",
+                                       
+                                  tags$style("#intro-page {
+                                             display: grid;
+                                             grid-template-columns: 100px 1fr;
+                                             grid-gap: 10px;
+                                             }"),
+                                  
                                   h3("What is Aquatic Insect Emergence and Why is it Important?"),
-                                          p(class = "indented-paragraph",
-                                          "In some species of aquatic insects, life cycles are divided between a larval stage in an aquatic environment and the emergence at the adult stage to the terrestrial environment", 
-                                           tags$a(href ="https://onlinelibrary.wiley.com/doi/10.1111/geb.13700", 
-                                           "(Nash et al., 2023)."),
-                                           "Many species of aquatic insects serve as shredders, who are macroinvertebrates that play animportant role in the food system by turning coarse leaf litter from annual leaf fall into finer particulate organic matter",
-                                           tags$a(href = "https://academic.oup.com/bioscience/article-lookup/doi/10.2307/1310804", 
-                                           "(Cummins et al., 1989)."), 
-                                           "Once shredders convert the leaf litter into a mixture of fecal matter and organic material, the macroinvertebrates known as collectors are able to consume the particulate matter through filtration. Other aquatic feeding groups include scrapers, who feed on algae, and predators, who feed on prey",
-                                           tags$a(href = "https://academic.oup.com/bioscience/article-lookup/doi/10.2307/1310804", 
-                                           "(Cummins et al., 1989)."),
-                                           "When aquatic insects emerge from the water, they act as an important transporter of nutrients from aquatic to terrestrial ecosystems",
-                                           tags$a(href = "http://link.springer.com/10.1007/s10021-016-0050-7", 
-                                           "(Schindler & Smits, 2017).")),
+                                  
+                                  div(id = "intro-page",
+                                      
+                                      div(p(class = "indented-paragraph",
+                                          "In some species of aquatic insects, life cycles are divided between a larval stage in an aquatic environment and the emergence at the adult stage to the terrestrial environment", tags$a(href ="https://onlinelibrary.wiley.com/doi/10.1111/geb.13700", "(Nash et al., 2023)."), "Many species of aquatic insects serve as shredders, who are macroinvertebrates that play animportant role in the food system by turning coarse leaf litter from annual leaf fall into finer particulate organic matter", tags$a(href = "https://academic.oup.com/bioscience/article-lookup/doi/10.2307/1310804", "(Cummins et al., 1989)."), "Once shredders convert the leaf litter into a mixture of fecal matter and organic material, the macroinvertebrates known as collectors are able to consume the particulate matter through filtration. Other aquatic feeding groups include scrapers, who feed on algae, and predators, who feed on prey", tags$a(href = "https://academic.oup.com/bioscience/article-lookup/doi/10.2307/1310804", "(Cummins et al., 1989)."), "When aquatic insects emerge from the water, they act as an important transporter of nutrients from aquatic to terrestrial ecosystems", tags$a(href = "http://link.springer.com/10.1007/s10021-016-0050-7", "(Schindler & Smits, 2017).")
+                                          ),
+                                          
+                                         #this is the start to a new paragraph 
                                           p(class = "indented-paragraph", 
-                                          "Since the emergence of aquatic insects is an essential resource pulse for consumers such as other insects, birds, and mammals, changes in the emergence patterns of aquatic insects can threaten the availability of quality food sources in the ecosystem. Shifts in water temperatures, chemistry, and velocity can all impact the size, quantity, and time frame in which insects emerge",
-                                            tags$a(href = "https://conbio.onlinelibrary.wiley.com/doi/10.1111/cobi.13477", 
-                                            "(Baranov et al., 2020;"),
-                                            tags$a(href = "https://pnas.org/doi/10.1073/pnas.2310513121",
-                                            " Leathers et al., 2024;"),
-                                            tags$a(href = "https://linkinghub.elsevier.com/retrieve/pii/S0960982222001191", 
-                                            "Shipley et al., 2022)."),
-                                            "These changes can result in a phenological mismatch between the emergence of aquatic insects and their terrestrial predators, leading to an overall decrease in the transfer of nutrients to the terrestrial ecosystem. One such nutrient is essential fatty acids that can only be found in aquatic insects, who accumulate the fatty acids from their algae rich diets",
-                                                 #this is the start to a new paragraph 
-                                            tags$a(href = "https://linkinghub.elsevier.com/retrieve/pii/S0960982222001191", 
-                                            "(Shipley et al., 2022)."),
-                                            "Since these fatty acids can be crucial for the development of some terrestrial predators, the misalignment between insect life cycles and terrestrial predators can lead to an overall decrease in survival fitness for some terrestrial species",
-                                            tags$a(href = "https://linkinghub.elsevier.com/retrieve/pii/S0960982222001191", 
-                                            "(Shipley et al., 2022).")
-                                                 ),
-                                  p(
-                                    div(
-                                      style = "text-align: center;",
-                                      tags$img(src = "nutrients.png", width = "30%", height = "30%"),
-                                      tags$figcaption("Figure 1: 
-                                                      This figure demonstrates differences in nutritional 
-                                                      content by source (terrestrial vs aquatic insect emergence).
-                                                      The availability of eicosapentaenoic acid (EPA), a type of 
-                                                      polyunsaturated fatty acid (PUFA), is far greater in aquatic
-                                                      insects than terrestrial insects. Source: Shipley et al 2022. ", style = "width: 30%; 
-                                                      margin: 0 auto; text-align: center;")
-                                    )
-                                  ),
+                                          "Since the emergence of aquatic insects is an essential resource pulse for consumers such as other insects, birds, and mammals, changes in the emergence patterns of aquatic insects can threaten the availability of quality food sources in the ecosystem. Shifts in water temperatures, chemistry, and velocity can all impact the size, quantity, and time frame in which insects emerge", tags$a(href = "https://conbio.onlinelibrary.wiley.com/doi/10.1111/cobi.13477", "(Baranov et al., 2020;"), tags$a(href = "https://pnas.org/doi/10.1073/pnas.2310513121", " Leathers et al., 2024;"), tags$a(href = "https://linkinghub.elsevier.com/retrieve/pii/S0960982222001191", "Shipley et al., 2022)."), "These changes can result in a phenological mismatch between the emergence of aquatic insects and their terrestrial predators, leading to an overall decrease in the transfer of nutrients to the terrestrial ecosystem. One such nutrient is essential fatty acids that can only be found in aquatic insects, who accumulate the fatty acids from their algae rich diets", tags$a(href = "https://linkinghub.elsevier.com/retrieve/pii/S0960982222001191", "(Shipley et al., 2022)."), "Since these fatty acids can be crucial for the development of some terrestrial predators, the misalignment between insect life cycles and terrestrial predators can lead to an overall decrease in survival fitness for some terrestrial species", tags$a(href = "https://linkinghub.elsevier.com/retrieve/pii/S0960982222001191", "(Shipley et al., 2022).")
+                                        )
+                                         ),
+                                      
+                                      div(tags$img(src = "nutrients.png", 
+                                               width = "100px"),
+                                          tags$figcaption("Figure 1: This figure demonstrates differences in nutritional content by source (terrestrial vs aquatic insect emergence). The availability of eicosapentaenoic acid (EPA), a type of polyunsaturated fatty acid (PUFA), is far greater in aquatic insects than terrestrial insects. Source: Shipley et al 2022. ",
+                                               widht = "100px")
+                                    ),
                                   h3("Collecting Aquatic Insects in Hubbard Brook "),
                                           p(div(
                                             style = tags$figure
@@ -124,7 +107,8 @@ ui <- fluidPage(theme = shinytheme("cerulean"),
                                                       margin: 0 auto; text-align: center;")
                                     ),
                                   h5("Please see the Works Cited tab for complete references."),
-                                  ),
+                                  )
+                                  ), # closes out tab
                                       
 
                                       #### Methods tab ####
