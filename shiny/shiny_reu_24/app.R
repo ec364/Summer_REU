@@ -59,74 +59,60 @@ ui <- fluidPage(theme = shinytheme("cerulean"),
                                       
                               #### Introduction tab ####        
                               tabPanel("Introduction",
+                                       
                                   h3("What is Aquatic Insect Emergence and Why is it Important?"),
+                                  
+                                  # for info on arranging rows see this blogpost:
+                                  # https://rshiny.blog/2023/05/04/shinys-grid-layout-or-how-to-arrange-elements-side-by-side/
+                                  fluidRow(
+                                    
+                                    column(width = 7, # paragraphs will take up 7/12 of the page
+                                           
                                           p(class = "indented-paragraph",
-                                          "In some species of aquatic insects, life cycles are divided between a larval stage in an aquatic environment and the emergence at the adult stage to the terrestrial environment", 
-                                           tags$a(href ="https://onlinelibrary.wiley.com/doi/10.1111/geb.13700", 
-                                           "(Nash et al., 2023)."),
-                                           "Many species of aquatic insects serve as shredders, who are macroinvertebrates that play animportant role in the food system by turning coarse leaf litter from annual leaf fall into finer particulate organic matter",
-                                           tags$a(href = "https://academic.oup.com/bioscience/article-lookup/doi/10.2307/1310804", 
-                                           "(Cummins et al., 1989)."), 
-                                           "Once shredders convert the leaf litter into a mixture of fecal matter and organic material, the macroinvertebrates known as collectors are able to consume the particulate matter through filtration. Other aquatic feeding groups include scrapers, who feed on algae, and predators, who feed on prey",
-                                           tags$a(href = "https://academic.oup.com/bioscience/article-lookup/doi/10.2307/1310804", 
-                                           "(Cummins et al., 1989)."),
-                                           "When aquatic insects emerge from the water, they act as an important transporter of nutrients from aquatic to terrestrial ecosystems",
-                                           tags$a(href = "http://link.springer.com/10.1007/s10021-016-0050-7", 
-                                           "(Schindler & Smits, 2017).")),
+                                          "In some species of aquatic insects, life cycles are divided between a larval stage in an aquatic environment and the emergence at the adult stage to the terrestrial environment", tags$a(href ="https://onlinelibrary.wiley.com/doi/10.1111/geb.13700", "(Nash et al., 2023)."), "Many species of aquatic insects serve as shredders, who are macroinvertebrates that play animportant role in the food system by turning coarse leaf litter from annual leaf fall into finer particulate organic matter", tags$a(href = "https://academic.oup.com/bioscience/article-lookup/doi/10.2307/1310804", "(Cummins et al., 1989)."), "Once shredders convert the leaf litter into a mixture of fecal matter and organic material, the macroinvertebrates known as collectors are able to consume the particulate matter through filtration. Other aquatic feeding groups include scrapers, who feed on algae, and predators, who feed on prey", tags$a(href = "https://academic.oup.com/bioscience/article-lookup/doi/10.2307/1310804", "(Cummins et al., 1989)."), "When aquatic insects emerge from the water, they act as an important transporter of nutrients from aquatic to terrestrial ecosystems", tags$a(href = "http://link.springer.com/10.1007/s10021-016-0050-7", "(Schindler & Smits, 2017).")),
+                                          
+                                         #this is the start to a new paragraph 
                                           p(class = "indented-paragraph", 
-                                          "Since the emergence of aquatic insects is an essential resource pulse for consumers such as other insects, birds, and mammals, changes in the emergence patterns of aquatic insects can threaten the availability of quality food sources in the ecosystem. Shifts in water temperatures, chemistry, and velocity can all impact the size, quantity, and time frame in which insects emerge",
-                                            tags$a(href = "https://conbio.onlinelibrary.wiley.com/doi/10.1111/cobi.13477", 
-                                            "(Baranov et al., 2020;"),
-                                            tags$a(href = "https://pnas.org/doi/10.1073/pnas.2310513121",
-                                            " Leathers et al., 2024;"),
-                                            tags$a(href = "https://linkinghub.elsevier.com/retrieve/pii/S0960982222001191", 
-                                            "Shipley et al., 2022)."),
-                                            "These changes can result in a phenological mismatch between the emergence of aquatic insects and their terrestrial predators, leading to an overall decrease in the transfer of nutrients to the terrestrial ecosystem. One such nutrient is essential fatty acids that can only be found in aquatic insects, who accumulate the fatty acids from their algae rich diets",
-                                                 #this is the start to a new paragraph 
-                                            tags$a(href = "https://linkinghub.elsevier.com/retrieve/pii/S0960982222001191", 
-                                            "(Shipley et al., 2022)."),
-                                            "Since these fatty acids can be crucial for the development of some terrestrial predators, the misalignment between insect life cycles and terrestrial predators can lead to an overall decrease in survival fitness for some terrestrial species",
-                                            tags$a(href = "https://linkinghub.elsevier.com/retrieve/pii/S0960982222001191", 
-                                            "(Shipley et al., 2022).")
-                                                 ),
-                                  p(
-                                    div(
-                                      style = "text-align: center;",
-                                      tags$img(src = "nutrients.png", width = "30%", height = "30%"),
-                                      tags$figcaption("Figure 1: 
-                                                      This figure demonstrates differences in nutritional 
-                                                      content by source (terrestrial vs aquatic insect emergence).
-                                                      The availability of eicosapentaenoic acid (EPA), a type of 
-                                                      polyunsaturated fatty acid (PUFA), is far greater in aquatic
-                                                      insects than terrestrial insects. Source: Shipley et al 2022. ", style = "width: 30%; 
-                                                      margin: 0 auto; text-align: center;")
-                                    )
-                                  ),
-                                  h3("Collecting Aquatic Insects in Hubbard Brook "),
-                                          p(div(
-                                            style = tags$figure
-                                             (class = "centerFigure",
-                                                tags$img(src = "Watershed_Location.png", 
-                                                     width = "40%", 
-                                                     height = "10%",
-                                                     style="float:left"),
-                                                tags$figcaption("Figure 2: This map shows the location of watersheds in which sticky traps are set in.")
-                                               )
-                                            )), 
-                                          p(class = "indented-paragraph", 
-                                          "Located in the White Mountains of New Hampshire, the Hubbard Brook Experimental Forest has been the host site of continuous water chemistry monitoring since 1963 (Edwards, 2022). In 2018, researchers began collecting the sticky traps records of aquatic insects above eight different streams in the Hubbard Brook Experimental Forest. Five double sided sticky traps collected weekly were attached to a tree branch in a 20m long section next to a stream. These traps were set in watersheds labeled 1, 2 , 3, 4, 5, 6, 9, and Hubbard Brook (Edwards, 2022). Researchers at the site have carried out numerous treatments to the forest and its watersheds to study the impacts on the overall ecosystem. Watershed 1 was exposed to a calcium treatment in 1999 to counteract decreases in soil pH resulting from acid rain, (Likens, 2013). Watersheds 2, 3, and 4 were exposed to varying levels of deforestation in different time intervals ranging from 1965-1984. Watershed 3 serves as a hydrological control watershed and watershed 6 serves as a biogeochemical reference site (Likens, 2013). Watershed 9 has not been exposed to any experiments. Each trap site was located in a different watershed in the forest, and hence exposed to the unique spatial landscapes on each watershed. The data collected by the sticky traps as well as the continuous chemical and physical sampling in Hubbard Brook can help reveal how the distinct environmental traits of each site lead to changes in aquatic insect emergence."),
-                  
-                                  p(
-                                    div(
-                                      style = "text-align: center;",
-                                      tags$img(src = "Watershed_Location.png", width = "100%", height = "100%"),
-                                      tags$figcaption("Figure 2: This map shows the location of watersheds 
-                                                      in which sticky traps are set in."),
-                                                      style = "width: 30%; 
-                                                      margin: 0 auto; text-align: center;")
+                                          "Since the emergence of aquatic insects is an essential resource pulse for consumers such as other insects, birds, and mammals, changes in the emergence patterns of aquatic insects can threaten the availability of quality food sources in the ecosystem. Shifts in water temperatures, chemistry, and velocity can all impact the size, quantity, and time frame in which insects emerge", tags$a(href = "https://conbio.onlinelibrary.wiley.com/doi/10.1111/cobi.13477", "(Baranov et al., 2020;"), tags$a(href = "https://pnas.org/doi/10.1073/pnas.2310513121", " Leathers et al., 2024;"), tags$a(href = "https://linkinghub.elsevier.com/retrieve/pii/S0960982222001191", "Shipley et al., 2022)."), "These changes can result in a phenological mismatch between the emergence of aquatic insects and their terrestrial predators, leading to an overall decrease in the transfer of nutrients to the terrestrial ecosystem. One such nutrient is essential fatty acids that can only be found in aquatic insects, who accumulate the fatty acids from their algae rich diets", tags$a(href = "https://linkinghub.elsevier.com/retrieve/pii/S0960982222001191", "(Shipley et al., 2022)."), "Since these fatty acids can be crucial for the development of some terrestrial predators, the misalignment between insect life cycles and terrestrial predators can lead to an overall decrease in survival fitness for some terrestrial species", tags$a(href = "https://linkinghub.elsevier.com/retrieve/pii/S0960982222001191", "(Shipley et al., 2022)."))
+                                         ), # closes column containing text only
+                                    
+                                    fluidRow(
+                                      
+                                      column(width = 4, # image + caption will take up 4/12 of page
+                                             
+                                           tags$img(src = "nutrients2.png",
+                                                    width = "75%"), # edits image size only
+                                           tags$figcaption("Figure 1: This figure demonstrates differences in nutritional content by aquatic vs terrestrial insect emergence. The availability of eicosapentaenoic acid (EPA), a type of polyunsaturated fatty acid (PUFA), is far greater in aquatic than terrestrial insects. Source: Shipley et al 2022. ")
+                                           
+                                           )
+                                      
+                                      )
+                                    
                                     ),
+                                  
+                                  h3("Collecting Aquatic Insects in Hubbard Brook "),
+                                  
+                                  fluidRow(
+                                    
+                                    column(width = 5, # image + caption will take up 5/12 of the page
+                                           tags$img(src = "Watershed_Location.png", 
+                                                     width = "80%"), # edits image size only
+                                           tags$figcaption("Figure 2: This map shows the location of watersheds in which sticky traps are set (denoted in yellow).")
+                                           
+                                           ),
+                                    
+                                    column(width = 6, # text will extend 6/12 of the page
+                                           
+                                          p(class = "indented-paragraph", 
+                                          "Located in the White Mountains of New Hampshire, the Hubbard Brook Experimental Forest has been the host site of continuous water chemistry monitoring since 1963 (Edwards, 2022). In 2018, researchers began collecting the sticky traps records of aquatic insects above eight different streams in the Hubbard Brook Experimental Forest. Five double sided sticky traps collected weekly were attached to a tree branch in a 20m long section next to a stream. These traps were set in watersheds labeled 1, 2 , 3, 4, 5, 6, 9, and Hubbard Brook (Edwards, 2022). Researchers at the site have carried out numerous treatments to the forest and its watersheds to study the impacts on the overall ecosystem. Watershed 1 was exposed to a calcium treatment in 1999 to counteract decreases in soil pH resulting from acid rain, (Likens, 2013). Watersheds 2, 3, and 4 were exposed to varying levels of deforestation in different time intervals ranging from 1965-1984. Watershed 3 serves as a hydrological control watershed and watershed 6 serves as a biogeochemical reference site (Likens, 2013). Watershed 9 has not been exposed to any experiments. Each trap site was located in a different watershed in the forest, and hence exposed to the unique spatial landscapes on each watershed. The data collected by the sticky traps as well as the continuous chemical and physical sampling in Hubbard Brook can help reveal how the distinct environmental traits of each site lead to changes in aquatic insect emergence.")
+                                          
+                                          )
+                                    
+                                    ),
+                                  
                                   h5("Please see the Works Cited tab for complete references."),
-                                  ),
+                                  
+                                  ), # closes out introduction tab - CHECK TO BE SURE
                                       
 
                                       #### Methods tab ####
