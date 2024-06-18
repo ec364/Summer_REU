@@ -97,7 +97,7 @@ ui <- fluidPage(theme = shinytheme("cerulean"),
                                     column(width = 5, # image + caption will take up 5/12 of the page
                                            tags$img(src = "Watershed_Location.png", 
                                                      width = "80%"), # edits image size only
-                                           tags$figcaption("Figure 2: This map shows the location of watersheds in which sticky traps are set (denoted in yellow).")
+                                           tags$figcaption("Figure 2: This map shows the location of watersheds in which sticky traps are set (denoted in yellow). Source: Edwards, 2022, Adapted from Holmes & Liken, 1999.")
                                            
                                            ),
                                     
@@ -110,7 +110,7 @@ ui <- fluidPage(theme = shinytheme("cerulean"),
                                     
                                     ),
                                   
-                                  h5("Please see the Works Cited tab for complete references."),
+                                  h4("Please see the Works Cited tab for complete references."),
                                   
                                   ), # closes out introduction tab - CHECK TO BE SURE
                                       
@@ -186,7 +186,7 @@ ui <- fluidPage(theme = shinytheme("cerulean"),
                                                
                                                # prints plot generated in server
                                                mainPanel(
-                                                 plotlyOutput("stoneflyPlot")      
+                                                 plotlyOutput("stoneflyPlot", width = "800px", height = "500px")      
                                       )
                                       )
                                       ), # closes plot tab - DO NOT DELETE
@@ -215,7 +215,7 @@ ui <- fluidPage(theme = shinytheme("cerulean"),
                                          
                                          # prints plot generated in server
                                          mainPanel(
-                                           plotlyOutput("EmergencePlot")      
+                                           plotlyOutput("EmergencePlot", width = "800px", height = "500px")      
                                          )
                                        ) ),
                                       
@@ -227,13 +227,13 @@ ui <- fluidPage(theme = shinytheme("cerulean"),
                                                in the Hubbard Brook Ecosystem makes this project an excellent candidate 
                                                for supervised object oriented machine learning. As of June 2024, a sample 
                                                training dataset has been composed using a photo annotation software called 
-                                               VGG Image Annotator (VIA).Stay tuned for further updates!"),
+                                               ", tags$a(href ="https://www.robots.ox.ac.uk/~vgg/software/via/via.html", "VGG Image Annotator (VIA).")),
                                                h4("Stay tuned for further updates!"),
                                                p(
                                                  div(
                                                    style = "text-align: center;",
                                                    tags$img(src = "VGG.png", width = "40%", height = "10%"),
-                                                   tags$figcaption("Screenshot of the photo annotation process using VGG Image Annotator.", style = "width: 40%; margin: 0 auto; text-align: center;")
+                                                   tags$figcaption("Screenshot of the photo annotation process using", tags$a(href ="https://www.robots.ox.ac.uk/~vgg/software/via/via.html", "VGG Image Annotator (VIA)."), style = "width: 40%; margin: 0 auto; text-align: center;")
                                                  )
                                                )),
 
@@ -243,14 +243,18 @@ ui <- fluidPage(theme = shinytheme("cerulean"),
                                       tabPanel("Works Cited",
                                                h4("Works Cited"),
                                                div(
-                                                 p(class = "bibliography", "Baranov, V., Jourdan, J., Pilotto, F., Wagner, R., & Haase, P. (2020). Complex and nonlinear climate‐driven changes in freshwater insect communities over 42 years. Conservation Biology, 34(5), 1241–1251. https://doi.org/10.1111/cobi.13477"),
-                                                 p(class = "bibliography", "Cummins, K. W., Wilzbach, M. A., Gates, D. M., Perry, J. B., & Taliaferro, W. B. (1989). Shredders and Riparian Vegetation. BioScience, 39(1), 24–30. https://doi.org/10.2307/1310804"),
+                                                 p(class = "bibliography", "Baranov, V., Jourdan, J., Pilotto, F., Wagner, R., & Haase, P. (2020). Complex and nonlinear climate‐driven changes in freshwater insect communities over 42 years. Conservation Biology, 34(5), 1241–1251.", tags$a(href ="https://doi.org/10.1111/cobi.13477", "https://doi.org/10.1111/cobi.13477")),
+                                                 p(class = "bibliography", "Cummins, K. W., Wilzbach, M. A., Gates, D. M., Perry, J. B., & Taliaferro, W. B. (1989). Shredders and Riparian Vegetation. BioScience, 39(1), 24–30.", tags$a(href =" https://doi.org/10.2307/1310804", "https://doi.org/10.2307/1310804")),
                                                  p(class = "bibliography", "Edwards, Tyler. 2022. (2022). Adult Insects and a Baby Record: Assessing Aquatic Insect Emergence at the Hubbard Brook Experimental Forest [Unpublished undergraduate thesis]. Duke University."),
-                                                 p(class = "bibliography", "Leathers, K., Herbst, D., De Mendoza, G., Doerschlag, G., & Ruhi, A. (2024). Climate change is poised to alter mountain stream ecosystem processes via organismal phenological shifts. Proceedings of the National Academy of Sciences, 121(14), e2310513121. https://doi.org/10.1073/pnas.2310513121"),
+                                                 p(class = "bibliography", "Leathers, K., Herbst, D., De Mendoza, G., Doerschlag, G., & Ruhi, A. (2024). Climate change is poised to alter mountain stream ecosystem processes via organismal phenological shifts. Proceedings of the National Academy of Sciences, 121(14), e2310513121", 
+                                                   tags$a(href ="https://doi.org/10.1073/pnas.2310513121", "https://doi.org/10.1073/pnas.2310513121")),
                                                  p(class = "bibliography", "Likens, Gene E.. Biogeochemistry of a Forested Ecosystem. United States, Springer New York, 2013."),
-                                                 p(class = "bibliography", "Nash, L. N., Zorzetti, L. W., Antiqueira, P. A. P., Carbone, C., Romero, G. Q., & Kratina, P. (2023). Latitudinal patterns of aquatic insect emergence driven by climate. Global Ecology and Biogeography, 32(8), 1323–1335. https://doi.org/10.1111/geb.13700"),
-                                                 p(class = "bibliography", "Schindler, D. E., & Smits, A. P. (2017). Subsidies of Aquatic Resources in Terrestrial Ecosystems. Ecosystems, 20(1), 78–93. https://doi.org/10.1007/s10021-016-0050-7"),
-                                                 p(class = "bibliography", "Shipley, J. R., Twining, C. W., Mathieu-Resuge, M., Parmar, T. P., Kainz, M., Martin-Creuzburg, D., Weber, C., Winkler, D. W., Graham, C. H., & Matthews, B. (2022). Climate change shifts the timing of nutritional flux from aquatic insects. Current Biology, 32(6), 1342-1349.e3. https://doi.org/10.1016/j.cub.2022.01.057")
+                                                 p(class = "bibliography", "Nash, L. N., Zorzetti, L. W., Antiqueira, P. A. P., Carbone, C., Romero, G. Q., & Kratina, P. (2023). Latitudinal patterns of aquatic insect emergence driven by climate. Global Ecology and Biogeography, 32(8), 1323–1335."
+                                                   ,tags$a(href ="https://doi.org/10.1111/geb.13700", "https://doi.org/10.1111/geb.13700")),
+                                                 p(class = "bibliography", "Schindler, D. E., & Smits, A. P. (2017). Subsidies of Aquatic Resources in Terrestrial Ecosystems. Ecosystems, 20(1), 78–93."
+                                                   ,tags$a(href ="https://doi.org/10.1007/s10021-016-0050-7", "https://doi.org/10.1007/s10021-016-0050-7")),
+                                                 p(class = "bibliography", "Shipley, J. R., Twining, C. W., Mathieu-Resuge, M., Parmar, T. P., Kainz, M., Martin-Creuzburg, D., Weber, C., Winkler, D. W., Graham, C. H., & Matthews, B. (2022). Climate change shifts the timing of nutritional flux from aquatic insects. Current Biology, 32(6), 1342-1349.e3." 
+                                                   , tags$a(href ="https://doi.org/10.1016/j.cub.2022.01.057", "https://doi.org/10.1016/j.cub.2022.01.057)"))
                                                )
                                                
                                       ) # closes out final panel
@@ -341,8 +345,8 @@ server <- function(input, output) {
     max_bugs_per_year <- max_bugs_per_year %>%
       filter(!is.na(DayOfYear))
    
- bug_max <- ggplot(max_bugs_per_year, aes(x = Year, y = DayOfYear, size = BugCount, color = watershed)) +
-     geom_point(alpha = 0.7)  +
+    bug_max <- ggplot(max_bugs_per_year, aes(x = Year, y = DayOfYear, size = BugCount, color = watershed)) +
+      geom_point(alpha = 0.7) +
       scale_y_continuous(name = "Day of Year") +
       scale_x_continuous(name = "Year", breaks = 2018:2024, limits = c(2018, 2024)) +
       labs(
@@ -359,8 +363,13 @@ server <- function(input, output) {
         axis.text.y = element_text(size = 12),
         legend.title = element_text(size = 14),
         legend.text = element_text(size = 12)
-      )
- ggplotly(bug_max)
+      ) +
+      guides(size = guide_legend(size = guide_legen("BugCount")), color = guide_legend("watershed"))
+ 
+plotly_bug_max <- ggplotly(bug_max)
+
+plotly_bug_max
+ 
   })
 }
 
