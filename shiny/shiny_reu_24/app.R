@@ -16,10 +16,14 @@ library(lubridate)
 # Load all necessary data.
 df <- trees # using a built-in R dataset of cherry trees
 sticky <- read_csv("data_raw/sticky_trap_counts.csv")
-sticky2 <- sticky
+
 # Perform all data transformation needed
 # prior to use in the shiny application here.
-
+sticky2 <- sticky %>% 
+  mutate(dipteran = dipteran_large + dipteran_small,
+         terrestrial = terrestrial_large + terrestrial_small,
+         caddisfly = caddisfly_large + caddisfly_small,
+         other = other_large + other_small)
 #### User Interface ####
 
 # More shiny themes available at https://rstudio.github.io/shinythemes/
@@ -54,17 +58,6 @@ ui <- fluidPage(theme = shinytheme("cerulean"),
                               #### Introduction tab ####        
                               tabPanel("Introduction",
                                   h3("What is Aquatic Insect Emergence and Why is it Important?"),
-                                        p(tags$figure
-                                          (class = "centerFigure",
-                                              tags$img(src = "nutrients.png", 
-                                                width = "30%", 
-                                                height = "30%",
-                                                style="float:right"),
-                                                tags$figcaption("Source: Shipley et al 2022. This figure demonstrates differences in nutritional content by source (terrestrial vs aquatic insect emergence). The availability of eicosapentaenoic acid (EPA), a type of polyunsaturated fatty acid (PUFA), is far greater in aquatic insects than terrestrial insects.")
-                                          )
-                                        ),
-                                        # p(tags$img(src = "nutrients.png", width = "30%", height = "30%", style="float:right")
-                                        # ),
                                           p(class = "indented-paragraph",
                                           "In some species of aquatic insects, life cycles are divided between a larval stage in an aquatic environment and the emergence at the adult stage to the terrestrial environment", 
                                            tags$a(href ="https://onlinelibrary.wiley.com/doi/10.1111/geb.13700", 
@@ -94,25 +87,43 @@ ui <- fluidPage(theme = shinytheme("cerulean"),
                                             tags$a(href = "https://linkinghub.elsevier.com/retrieve/pii/S0960982222001191", 
                                             "(Shipley et al., 2022).")
                                                  ),
+                                  p(
+                                    div(
+                                      style = "text-align: center;",
+                                      tags$img(src = "nutrients.png", width = "30%", height = "30%"),
+                                      tags$figcaption("Figure 1: 
+                                                      This figure demonstrates differences in nutritional 
+                                                      content by source (terrestrial vs aquatic insect emergence).
+                                                      The availability of eicosapentaenoic acid (EPA), a type of 
+                                                      polyunsaturated fatty acid (PUFA), is far greater in aquatic
+                                                      insects than terrestrial insects. Source: Shipley et al 2022. ", style = "width: 30%; 
+                                                      margin: 0 auto; text-align: center;")
+                                    )
+                                  ),
                                   h3("Collecting Aquatic Insects in Hubbard Brook "),
-                                          p(tags$figure
+                                          p(div(
+                                            style = tags$figure
                                              (class = "centerFigure",
                                                 tags$img(src = "Watershed_Location.png", 
                                                      width = "40%", 
                                                      height = "10%",
                                                      style="float:left"),
-                                                   
                                                 tags$figcaption("Figure 2: This map shows the location of watersheds in which sticky traps are set in.")
                                                )
-                                            ), 
+                                            )), 
                                           p(class = "indented-paragraph", 
                                           "Located in the White Mountains of New Hampshire, the Hubbard Brook Experimental Forest has been the host site of continuous water chemistry monitoring since 1963 (Edwards, 2022). In 2018, researchers began collecting the sticky traps records of aquatic insects above eight different streams in the Hubbard Brook Experimental Forest. Five double sided sticky traps collected weekly were attached to a tree branch in a 20m long section next to a stream. These traps were set in watersheds labeled 1, 2 , 3, 4, 5, 6, 9, and Hubbard Brook (Edwards, 2022). Researchers at the site have carried out numerous treatments to the forest and its watersheds to study the impacts on the overall ecosystem. Watershed 1 was exposed to a calcium treatment in 1999 to counteract decreases in soil pH resulting from acid rain, (Likens, 2013). Watersheds 2, 3, and 4 were exposed to varying levels of deforestation in different time intervals ranging from 1965-1984. Watershed 3 serves as a hydrological control watershed and watershed 6 serves as a biogeochemical reference site (Likens, 2013). Watershed 9 has not been exposed to any experiments. Each trap site was located in a different watershed in the forest, and hence exposed to the unique spatial landscapes on each watershed. The data collected by the sticky traps as well as the continuous chemical and physical sampling in Hubbard Brook can help reveal how the distinct environmental traits of each site lead to changes in aquatic insect emergence."),
-                                  br(),
-                                  br(),
-                                  br(),
-                                  br(),
-                                  br(),
-                                  h5("Please see the Works Cited tab for complete references.")
+                  
+                                  p(
+                                    div(
+                                      style = "text-align: center;",
+                                      tags$img(src = "Watershed_Location.png", width = "100%", height = "100%"),
+                                      tags$figcaption("Figure 2: This map shows the location of watersheds 
+                                                      in which sticky traps are set in."),
+                                                      style = "width: 30%; 
+                                                      margin: 0 auto; text-align: center;")
+                                    ),
+                                  h5("Please see the Works Cited tab for complete references."),
                                   ),
                                       
 
@@ -126,6 +137,14 @@ ui <- fluidPage(theme = shinytheme("cerulean"),
                                                watershed (Edwards, 2022). The sticky traps are set out after ice melts each year (around March or April)
                                                collection ends when traps are found to be sparsely filled (November or December). Once collected, 
                                                sticky traps were placed inside a plastic page protector and shipped to the Bernhardt Lab for identification."),
+                                               p(
+                                                 div(
+                                                   style = "text-align: center;",
+                                                   tags$img(src = "trap_location.png", width = "30%", height = "30%"),
+                                                   tags$figcaption("Figure 3: Sticky Traps employed in the field. Double sided traps are laid out in a 20m long strip along the stream to capture emerging insects. Source: Edwards, 2022", style = "width: 30%; 
+                                                      margin: 0 auto; text-align: center;")
+                                                 )
+                                               ),
                                                h3("Insect Identification"),
                                                p(class = "indented-paragraph", "At the Bernhardt Lab, insects were identified using dissecting 
                                                  microscopes and a color coding system (Edwards, 2022). Insects were labeled by the categories: 
@@ -135,38 +154,19 @@ ui <- fluidPage(theme = shinytheme("cerulean"),
                                                  , with different colors representing different orders and different shapes (dash or circle) 
                                                  representing different sizes. Count of each order and size is tallied up and marked on the side
                                                  of the paper protector. Information about each trap was uploaded to the hbwater database."),
-                                      p(tags$figure
-                                        (
-                                       # class = "centerFigure",
-                                        tags$img
-                                          (
-                                          src = "annotated_trap.png", 
-                                          width = "30%", 
-                                          height = "30%",
-                                            style="float:right"
-                                        )
-                                        ,
-                                        tags$figcaption("Figure #: An example of a sticky trap after annoation. Dashes and circles denote size of insect. Color of annotation represents order. Count of insects by order and size on the right.")
-                                        )
-                                        ), 
-                                      p(tags$figure 
-                                        (
-                                          class = "centerFigure",
-                                          tags$img(
-                                            src = "trap_location.png",
-                                            width = "30%",
-                                            height = "30%",
-                                            style="float:left"
-                                          ),
-                                          tags$figcaption("Figure #: Example of a collection site. Yellow double-sided sticky traps are located in a 20m stretch next to a stream to capture insect emergence. Edwards, 2022"
-                                                          )
-                                        ))), #come back and find/fix caption 
-                                      
-                                      #page break
-                                      br(),
+                                               p(
+                                                 div(
+                                                   style = "text-align: center;",
+                                                   tags$img(src = "annotated_trap.png", width = "20%", height = "20%"),
+                                                   tags$figcaption("Figure 4: An example of a sticky trap after annoation. Dashes and circles denote size of insect. Color of annotation represents order. Count of insects by order and size on the right. Photo taken by Erin Chen", style = "width: 30%; 
+                                                      margin: 0 auto; text-align: center;")
+                                                 )
+                                               ) 
+                                      ), 
+                                  
                                       
                                       #### Plotting tab ####
-                                      tabPanel("Plot",
+                                      tabPanel("Insect Count Over Time",
                                       #inserting a slider for year
                                                sidebarLayout(
                                                  sidebarPanel(
@@ -177,23 +177,22 @@ ui <- fluidPage(theme = shinytheme("cerulean"),
                                                                   start = as.Date("2018-01-01","%Y-%m-%d"),
                                                                   end = as.Date("2023-12-31","%Y-%m-%d")
                                                                   ),
-                                                   #sliderInput("timeRange",
-                                                              # "Select the time period:",
-                                                               #min = as.Date("2018-01-01","%Y-%m-%d"), #start 112018
-                                                              # max = as.Date("2023-12-31","%Y-%m-%d"), #end 123123
-                                                               #value = c(as.Date("2018-01-01","%Y-%m-%d"), as.Date("2023-12-31","%Y-%m-%d")),
-                                                               #sep = "",
-                                                               #step = 1),
-                                                   #chosing bug type
                                                    checkboxGroupInput("bugType", 
                                                                "Select Bug Type:",
                                                                choices = c("Stoneflies" = "stonefly_large", 
-                                                                           "Caddisflies" = "caddisfly_large", 
+                                                                           "Caddisflies" = "caddisfly", 
+                                                                           "Terrestrial" = "terrestrial",
                                                                            "Mayflies" = "mayfly_large", 
-                                                                           "Dipteran" = "dipteran_large",
-                                                                           "Other" = "other_large"),
-                                                               selected = "stonefly_large")
-                                                 
+                                                                           "Dipteran" = "dipteran",
+                                                                           "Other" = "other"),
+                                                               selected = "stonefly_large"),
+                                                   checkboxGroupInput(
+                                                     inputId = "shedInput",
+                                                     label = "Choose a watershed",
+                                                     choices = c("1", "2", "3", "4", "5", "6","9", "Hubbard Brook"), #use filter in server: filter(column_name %in% list) %>%
+                                                     selected = "1",
+                                                     inline = TRUE
+                                                   )
                                                  ),
                                                 
                                                
@@ -203,10 +202,27 @@ ui <- fluidPage(theme = shinytheme("cerulean"),
                                       )
                                       )
                                       ), # closes plot tab - DO NOT DELETE
+                              tabPanel("Peak Emergence"
+                                       ),
                                       
                                       #### ML Development tab ####
-                                      tabPanel("Machine Learning"
-                                               ),
+                                      tabPanel("Machine Learning",
+                                               h3("What's happening"),
+                                               p("Beginning in May 2024, the lab is looking into incorporating machine 
+                                               learning into the insect identification process. The limited biodiversity 
+                                               in the Hubbard Brook Ecosystem makes this project an excellent candidate 
+                                               for supervised object oriented machine learning. As of June 2024, a sample 
+                                               training dataset has been composed using a photo annotation software called 
+                                               VGG Image Annotator (VIA).Stay tuned for further updates!"),
+                                               h4("Stay tuned for further updates!"),
+                                               p(
+                                                 div(
+                                                   style = "text-align: center;",
+                                                   tags$img(src = "VGG.png", width = "40%", height = "10%"),
+                                                   tags$figcaption("Screenshot of the photo annotation process using VGG Image Annotator.", style = "width: 40%; margin: 0 auto; text-align: center;")
+                                                 )
+                                               )),
+
                                       
                                       
                                       #### Works Cited tab ####
@@ -238,12 +254,10 @@ server <- function(input, output) {
   
   # Creates plot for inclusion on plotting tab.
   output$stoneflyPlot <- renderPlot({
-    filtered_data <- sticky %>% 
-    mutate(Date = ymd(date)) %>% 
-      # create year and month columns first
-      mutate(year = year(date),
-             month = month(date)) %>%
-      filter(Date >= input$timeRange[1] & Date <= input$timeRange[2])
+    filtered_data <- sticky2 %>% 
+      mutate(Date = as.Date(date, "%Y-%m-%d")) %>% 
+      filter(Date >= input$timeRange[1] & Date <= input$timeRange[2]) %>%
+      filter(watershed %in% input$shedInput)
     
     # set the list of chosen insects to the new variable "chosenBugs"
     chosenBugs <- input$bugType
@@ -253,7 +267,7 @@ server <- function(input, output) {
       # first need to pivot data from wide format to long format
       # pivoting the dipteran_large through other_small columns
       # column names will appear in one column and values in another
-      pivot_longer(cols = dipteran_large:other_small, 
+      pivot_longer(cols = dipteran_large:other, 
                    names_to = "taxa", # names the new names column
                    values_to = "count") %>% # names the new values column
       # there will be lots of NAs, but that's alright, that just means
@@ -261,19 +275,30 @@ server <- function(input, output) {
       # now we can filter by chosen insect inputs
       filter(taxa %in% chosenBugs) %>%
       # group by every month of each year
-      group_by(year, month) %>%
+      group_by(Date, watershed) %>%
       # and finally sum all of the chosen insect counts, omitting NAs
       summarise(total_bug = sum(count, na.rm = TRUE)) %>%
-      ungroup()
+      ungroup() %>% 
+      mutate(month = month(Date))
     
     #plotting the graph 
-    ggplot(agg_data, aes(x = year, y = total_bug)) +
-      geom_point() +  
-      facet_wrap(~ month, scales = "fixed") +  # Ensure the same scale for all y-axes
-      labs(title = "Total Number of Stoneflies by Year and Month",
-           x = "Year",
-           y = "Total Number of Stoneflies") +
+    agg_data %>% 
+      ggplot(aes(x = Date, y = total_bug, color = watershed)) +
+      geom_line() +  
+     # facet_wrap(~ month, scales = "fixed") +  # Ensure the same scale for all y-axes
+      labs(title = "Count of Insects in Hubbard Brook by Time",
+           x = "Time Period",
+           y = "Insect Count") +
       theme_minimal() +
+      theme(
+        plot.title = element_text(size = 20, face = "bold"),  # Title font size
+        axis.title.x = element_text(size = 15),              # X-axis title font size
+        axis.title.y = element_text(size = 15),              # Y-axis title font size
+        axis.text.x = element_text(size = 12),               # X-axis text font size
+        axis.text.y = element_text(size = 12),               # Y-axis text font size
+        legend.title = element_text(size = 14),              # Legend title font size
+        legend.text = element_text(size = 12)                # Legend text font size
+      ) +
       theme(axis.text.x = element_text(angle = 45, hjust = 1))  # Rotate x-axis labels
   })
 }

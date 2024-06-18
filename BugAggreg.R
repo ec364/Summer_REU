@@ -1,13 +1,18 @@
+#### Load in packages
+library(shiny)
+library(shinythemes)
+library(tidyverse)
+library(viridis)
+library(bslib)
+library(lubridate)
+
 ####Load in Data Sets and Packages
-sticky <- sticky_trap_counts
-chemical <- HBEFdata_All_2024_05_17
+sticky <- read.csv("shiny/shiny_reu_24/data_raw/sticky_trap_counts.csv")
+sticky <- sticky[-1393,] # removes record # 1393
+chemical <- read.csv("shiny/shiny_reu_24/data_raw/HBEFdata_All_2024-05-17.csv")
 view(chemical)
 
 view(sticky)
-####converting date data to date form 
-sticky$date <- as.Date(sticky$date)
-sticky$year <- year(sticky$date)
-sticky$month <- month(sticky$date, label = TRUE)
 
 ####converting nas into 0
 
@@ -54,7 +59,7 @@ count_may <- sticky %>%
   summarise(total_mayflies = sum(mayfly_large, na.rm = TRUE)) %>%
   ungroup()
 
-####making graph for mayflies
+#### making graph for mayflies
 ggplot(count_may, aes(x = as.integer(year), y = total_mayflies)) +
   geom_point() +  # Use geom_point() if you prefer points
   facet_wrap(~ month, scales = "fixed") +
@@ -64,4 +69,38 @@ ggplot(count_may, aes(x = as.integer(year), y = total_mayflies)) +
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
+#### make scatterplot: x = time, y = bug count, color = watershed ####
+sticky %>% 
+  mutate(Date = as.Date(date, "%Y-%m-%d")) %>% 
+  ggplot(aes(x = Date, y = dipteran_large, color = as.factor(watershed))) +
+  geom_point() + #turn date into date 
+  labs(title = "Scatter plot of Bugs over Time",
+       x = "Date",
+       y = "Number of Bugs",
+       color = "Watershed") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+scale_x_date(date_breaks = "months" , date_labels = "%b-%y") 
 
+#check to see if theres a way to change the number of labels. (ex 20 breaks on x) ####
+
+####shiny app code
+filtered_data1 <- sticky %>% 
+  mutate(Date = as.Date(date, "%Y-%m-%d")) %>% 
+  pivot_longer(cols = dipteran_large:other_small, 
+               names_to = "taxa", # names the new names column
+               values_to = "count") %>% 
+  group_by(Date) %>% 
+  summarise(total_bug = sum(count, na.rm = TRUE)) %>%
+  ungroup()
+filtered_data1
+
+####generating emergence plot####
+
+tail(sticky)
+peak_other <- sticky %>% 
+  mutate(Date = as.Date(date, "%Y-%m-%d")) %>% 
+  group_by(date) %>% 
+  summarize(max = max(other_small, na.rm = TRUE)) %>% 
+  ungroup()
+peak_other
