@@ -12,6 +12,8 @@ library(tidyverse)
 library(viridis)
 library(bslib)
 library(lubridate)
+library(shinyWidgets)
+library(plotly)
 
 # Load all necessary data.
 df <- trees # using a built-in R dataset of cherry trees
@@ -190,7 +192,7 @@ ui <- fluidPage(theme = shinytheme("cerulean"),
                                                      inputId = "shedInput",
                                                      label = "Choose a watershed",
                                                      choices = c("1", "2", "3", "4", "5", "6","9", "Hubbard Brook"), #use filter in server: filter(column_name %in% list) %>%
-                                                     selected = "1",
+                                                     selected = "6",
                                                      inline = TRUE
                                                    )
                                                  ),
@@ -198,12 +200,38 @@ ui <- fluidPage(theme = shinytheme("cerulean"),
                                                
                                                # prints plot generated in server
                                                mainPanel(
-                                                 plotOutput("stoneflyPlot")      
+                                                 plotlyOutput("stoneflyPlot")      
                                       )
                                       )
                                       ), # closes plot tab - DO NOT DELETE
-                              tabPanel("Peak Emergence"
-                                       ),
+                              ####plotting peak emergence tab####
+                              tabPanel("Peak Emergence",
+                                       sidebarLayout(
+                                         sidebarPanel(
+                                           awesomeRadio(inputId = "bugType2", 
+                                                              label = "Select Bug Type:",
+                                                              choices = c("Stoneflies" = "stonefly_large", 
+                                                                          "Caddisflies" = "caddisfly", 
+                                                                          "Terrestrial" = "terrestrial",
+                                                                          "Mayflies" = "mayfly_large", 
+                                                                          "Dipteran" = "dipteran",
+                                                                          "Other" = "other"),
+                                                              selected = "stonefly_large"),
+                                           checkboxGroupInput(
+                                             inputId = "shedInput2",
+                                             label = "Choose a watershed",
+                                             choices = c("1", "2", "3", "4", "5", "6","9", "Hubbard Brook"), #use filter in server: filter(column_name %in% list) %>%
+                                             selected = "6",
+                                             inline = TRUE
+                                           )
+                                         ),
+                                         
+                                         
+                                         # prints plot generated in server
+                                         mainPanel(
+                                           plotlyOutput("EmergencePlot")      
+                                         )
+                                       ) ),
                                       
                                       #### ML Development tab ####
                                       tabPanel("Machine Learning",
@@ -253,7 +281,7 @@ ui <- fluidPage(theme = shinytheme("cerulean"),
 server <- function(input, output) {
   
   # Creates plot for inclusion on plotting tab.
-  output$stoneflyPlot <- renderPlot({
+  output$stoneflyPlot <- renderPlotly({
     filtered_data <- sticky2 %>% 
       mutate(Date = as.Date(date, "%Y-%m-%d")) %>% 
       filter(Date >= input$timeRange[1] & Date <= input$timeRange[2]) %>%
@@ -282,10 +310,9 @@ server <- function(input, output) {
       mutate(month = month(Date))
     
     #plotting the graph 
-    agg_data %>% 
-      ggplot(aes(x = Date, y = total_bug, color = watershed)) +
+    BugCountPlot <- agg_data %>% 
+        ggplot(aes(x = Date, y = total_bug, color = watershed)) +
       geom_line() +  
-     # facet_wrap(~ month, scales = "fixed") +  # Ensure the same scale for all y-axes
       labs(title = "Count of Insects in Hubbard Brook by Time",
            x = "Time Period",
            y = "Insect Count") +
@@ -299,7 +326,55 @@ server <- function(input, output) {
         legend.title = element_text(size = 14),              # Legend title font size
         legend.text = element_text(size = 12)                # Legend text font size
       ) +
-      theme(axis.text.x = element_text(angle = 45, hjust = 1))  # Rotate x-axis labels
+      theme(axis.text.x = element_text(angle = 45, hjust = 1))
+    
+    ggplotly(BugCountPlot)
+        # Rotate x-axis labels
+  })
+  #making emergence plot
+  output$EmergencePlot <- renderPlotly({
+    sticky3 <- sticky2 %>%
+      mutate(
+        Year = year(date),
+        DayOfYear = yday(date)
+      )
+    
+    filtered_data <- sticky3 %>%
+      filter(
+        watershed %in% input$shedInput2
+      )
+    
+    max_bugs_per_year <- filtered_data %>%
+      group_by(Year, watershed) %>%
+      summarise(
+        BugCount = max(.data[[input$bugType2]], na.rm = TRUE),
+        DayOfYear = DayOfYear[which.max(.data[[input$bugType2]])]
+      ) %>%
+      ungroup()
+    
+    max_bugs_per_year <- max_bugs_per_year %>%
+      filter(!is.na(DayOfYear))
+   
+ bug_max <- ggplot(max_bugs_per_year, aes(x = Year, y = DayOfYear, size = BugCount, color = watershed)) +
+     geom_point(alpha = 0.7)  +
+      scale_y_continuous(name = "Day of Year") +
+      scale_x_continuous(name = "Year", breaks = 2018:2024, limits = c(2018, 2024)) +
+      labs(
+        title = "Maximum Number of Bugs Each Year by Watershed",
+        size = "Max Bugs",
+        color = "Watershed"
+      ) +
+      theme_minimal() +
+      theme(
+        plot.title = element_text(size = 20, face = "bold"),
+        axis.title.x = element_text(size = 15),
+        axis.title.y = element_text(size = 15),
+        axis.text.x = element_text(size = 12),
+        axis.text.y = element_text(size = 12),
+        legend.title = element_text(size = 14),
+        legend.text = element_text(size = 12)
+      )
+ ggplotly(bug_max)
   })
 }
 

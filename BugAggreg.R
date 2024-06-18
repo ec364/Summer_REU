@@ -104,3 +104,36 @@ peak_other <- sticky %>%
   summarize(max = max(other_small, na.rm = TRUE)) %>% 
   ungroup()
 peak_other
+
+####plotting peak emergence####
+sticky3 <- sticky %>%
+  mutate(
+    Year = year(date),
+    DayOfYear = yday(date)
+  )
+
+max_bugs_per_year <- sticky3 %>%
+  group_by(Year, watershed) %>%
+  summarise(
+    MaxBugs = max(dipteran_small, na.rm = TRUE),
+    DayOfYear = DayOfYear[which.max(dipteran_small)]
+  )
+
+ggplot(max_bugs_per_year, aes(x = Year, y = DayOfYear, size = MaxBugs, color = watershed)) +
+  geom_point(alpha = 0.7)  +
+   labs(
+    title = "Maximum Number of Bugs Each Year by Watershed",
+    size = "Max Bugs",
+    color = "Watershed"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(size = 20, face = "bold"),
+    axis.title.x = element_text(size = 15),
+    axis.title.y = element_text(size = 15),
+    axis.text.x = element_text(size = 12),
+    axis.text.y = element_text(size = 12),
+    legend.title = element_text(size = 14),
+    legend.text = element_text(size = 12)
+  )
+
