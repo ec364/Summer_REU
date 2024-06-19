@@ -180,12 +180,17 @@ ui <- fluidPage(theme = shinytheme("cerulean"),
                                                      choices = c("1", "2", "3", "4", "5", "6","9", "Hubbard Brook"), #use filter in server: filter(column_name %in% list) %>%
                                                      selected = "6",
                                                      inline = TRUE
-                                                   )
+                                                   ),
+                                                   helpText("This app utilizes plotly, an interactive plotting program, to visualize to data. 
+                                                            Icons in the top right corner offers users the ability to capture photos of data, zoom in, and return to original display.
+                                                            Other elements on the graph it self, such as legends, can provide further information and displays for the user upon clicking or hovering,
+                                                            to return to the original view, click the home button on the top left corner.")
                                                  ),
                                                 
                                                
                                                # prints plot generated in server
                                                mainPanel(
+                                                
                                                  plotlyOutput("stoneflyPlot", width = "800px", height = "500px")      
                                       )
                                       )
@@ -209,7 +214,11 @@ ui <- fluidPage(theme = shinytheme("cerulean"),
                                              choices = c("1", "2", "3", "4", "5", "6","9", "Hubbard Brook"), #use filter in server: filter(column_name %in% list) %>%
                                              selected = "6",
                                              inline = TRUE
-                                           )
+                                           ),
+                                           helpText("This app utilizes plotly, an interactive plotting program, to visualize to data. 
+                                                            Icons in the top right corner offers users the ability to capture photos of data, zoom in, and return to original display.
+                                                            Other elements on the graph it self, such as legends, can provide further information and displays for the user upon clicking or hovering,
+                                                            to return to the original view, click the home button on the top left corner.")
                                          ),
                                          
                                          
