@@ -94,7 +94,7 @@ ui <- fluidPage(theme = shinytheme("cerulean"),
                                   
                                   fluidRow(
                                     
-                                    column(width = 5, # image + caption will take up 5/12 of the page
+                                    column(width = 6, # image + caption will take up 5/12 of the page
                                            tags$img(src = "Watershed_Location.png", 
                                                      width = "80%"), # edits image size only
                                            tags$figcaption("Figure 2: This map shows the location of watersheds in which sticky traps are set (denoted in yellow). Source: Edwards, 2022, Adapted from Holmes & Liken, 1999.")
@@ -104,7 +104,18 @@ ui <- fluidPage(theme = shinytheme("cerulean"),
                                     column(width = 6, # text will extend 6/12 of the page
                                            
                                           p(class = "indented-paragraph", 
-                                          "Located in the White Mountains of New Hampshire, the Hubbard Brook Experimental Forest has been the host site of continuous water chemistry monitoring since 1963 (Edwards, 2022). In 2018, researchers began collecting the sticky traps records of aquatic insects above eight different streams in the Hubbard Brook Experimental Forest. Five double sided sticky traps collected weekly were attached to a tree branch in a 20m long section next to a stream. These traps were set in watersheds labeled 1, 2 , 3, 4, 5, 6, 9, and Hubbard Brook (Edwards, 2022). Researchers at the site have carried out numerous treatments to the forest and its watersheds to study the impacts on the overall ecosystem. Watershed 1 was exposed to a calcium treatment in 1999 to counteract decreases in soil pH resulting from acid rain, (Likens, 2013). Watersheds 2, 3, and 4 were exposed to varying levels of deforestation in different time intervals ranging from 1965-1984. Watershed 3 serves as a hydrological control watershed and watershed 6 serves as a biogeochemical reference site (Likens, 2013). Watershed 9 has not been exposed to any experiments. Each trap site was located in a different watershed in the forest, and hence exposed to the unique spatial landscapes on each watershed. The data collected by the sticky traps as well as the continuous chemical and physical sampling in Hubbard Brook can help reveal how the distinct environmental traits of each site lead to changes in aquatic insect emergence.")
+                                          "Located in the White Mountains of New Hampshire, the Hubbard Brook Experimental Forest has been the host
+                                          site of continuous water chemistry monitoring since 1963 (Edwards, 2022). In 2018, researchers began 
+                                          collecting the sticky traps records of aquatic insects above eight different streams in the Hubbard Brook
+                                          Experimental Forest. Five double sided sticky traps collected weekly were attached to a tree branch in a
+                                          20m long section next to a stream. These traps were set in watersheds labeled 1, 2 , 3, 4, 5, 6, 9, 
+                                          and Hubbard Brook (Edwards, 2022). Researchers at the site have carried out numerous treatments to the 
+                                          forest and its watersheds to study the impacts on the overall ecosystem. Watershed 1 was exposed to a 
+                                          calcium treatment in 1999 to counteract decreases in soil pH resulting from acid rain, (Likens, 2013). 
+                                          Watersheds 2, 3, and 4 were exposed to varying levels of deforestation in different time intervals ranging 
+                                          from 1965-1984. Watershed 3 serves as a hydrological control watershed and watershed 6 serves as a 
+                                          biogeochemical reference site (Likens, 2013). Watershed 9 has not been exposed to any experiments. Each trap 
+                                          site was located in a different watershed in the forest, and hence exposed to the unique spatial landscapes on each watershed. The data collected by the sticky traps as well as the continuous chemical and physical sampling in Hubbard Brook can help reveal how the distinct environmental traits of each site lead to changes in aquatic insect emergence.")
                                           
                                           )
                                     
@@ -118,38 +129,39 @@ ui <- fluidPage(theme = shinytheme("cerulean"),
                                       #### Methods tab ####
                                       tabPanel("Methods", 
                                                h3("In field collection"),
-                                               p(class = "indented-paragraph", "Insect collection began in April 2018 (Edwards, 2022). Insects 
+                                               fluidRow(
+                                                 column(width = 7, 
+                                                        p(class = "indented-paragraph", "Insect collection began in April 2018 (Edwards, 2022). Insects 
                                                are collected weekly on double sided 4” x 7” sticky traps from watersheds labeled 1, 2, 3, 4, 5, 6, 9,
                                                and Hubbard Brook (Edwards, 2022). At each collection site, five sticky traps were spread across a 
                                                20m long section. The traps were attached to tree branches along a stream in each 
                                                watershed (Edwards, 2022). The sticky traps are set out after ice melts each year (around March or April)
                                                collection ends when traps are found to be sparsely filled (November or December). Once collected, 
                                                sticky traps were placed inside a plastic page protector and shipped to the Bernhardt Lab for identification."),
-                                               p(
-                                                 div(
-                                                   style = "text-align: center;",
-                                                   tags$img(src = "trap_location.png", width = "30%", height = "30%"),
-                                                   tags$figcaption("Figure 3: Sticky Traps employed in the field. Double sided traps are laid out in a 20m long strip along the stream to capture emerging insects. Source: Edwards, 2022", style = "width: 30%; 
-                                                      margin: 0 auto; text-align: center;")
-                                                 )
+                                                        ),
+                                                   column(width = 4,
+                                                          tags$img(src = "trap_location.png", width = "80%", height = "80%"),
+                                                          tags$figcaption("Figure 3: Sticky Traps employed in the field. Double sided traps are laid out in a 20m long strip along the stream to 
+                                                          capture emerging insects. Source: Edwards, 2022.")
+                                                          )
+                                                 
                                                ),
                                                h3("Insect Identification"),
-                                               p(class = "indented-paragraph", "At the Bernhardt Lab, insects were identified using dissecting 
-                                                 microscopes and a color coding system (Edwards, 2022). Insects were labeled by the categories: 
+                                               fluidRow(
+                                                 column(width = 7,
+                                                        p(class = "indented-paragraph", "At the Bernhardt Lab, insects were identified using dissecting 
+                                                microscopes and a color coding system (Edwards, 2022). Insects were labeled by the categories: 
                                                  Terrestrial Diptera, Aquatic Diptera, Caddisflies, Mayflies, Stoneflies, or Other. Insects 
                                                  were also labeled for their size, with “Small” insects composing of bodies less than 5mm 
                                                  and “Large” insects composing of bodies greater than 5mm. Marks were made directly on the sheet
                                                  , with different colors representing different orders and different shapes (dash or circle) 
                                                  representing different sizes. Count of each order and size is tallied up and marked on the side
-                                                 of the paper protector. Information about each trap was uploaded to the hbwater database."),
-                                               p(
-                                                 div(
-                                                   style = "text-align: center;",
-                                                   tags$img(src = "annotated_trap.png", width = "20%", height = "20%"),
-                                                   tags$figcaption("Figure 4: An example of a sticky trap after annoation. Dashes and circles denote size of insect. Color of annotation represents order. Count of insects by order and size on the right. Photo taken by Erin Chen", style = "width: 30%; 
-                                                      margin: 0 auto; text-align: center;")
+                                                 of the paper protector. Information about each trap was uploaded to the hbwater database.")),
+                                                 column(width = 4,
+                                                        tags$img(src = "annotated_trap.png", width = "50%", height = "40%"),
+                                                        tags$figcaption("Figure 4: An example of a sticky trap after annoation. Dashes and circles denote size of insect. Color of annotation represents order. Count of insects by order and size on the right. Photo taken by Erin Chen.")
                                                  )
-                                               ) 
+                                               )
                                       ), 
                                   
                                       
@@ -169,11 +181,15 @@ ui <- fluidPage(theme = shinytheme("cerulean"),
                                                                "Select Bug Type:",
                                                                choices = c("Stoneflies" = "stonefly_large", 
                                                                            "Caddisflies" = "caddisfly", 
-                                                                           "Terrestrial" = "terrestrial",
                                                                            "Mayflies" = "mayfly_large", 
                                                                            "Dipteran" = "dipteran",
+                                                                           "Terrestrial" = "terrestrial",
                                                                            "Other" = "other"),
                                                                selected = "stonefly_large"),
+                                                   helpText("Stoneflies refer to the order Plecoptera. Caddisflies refer to the order Trichoptera.
+                                                            Mayflies refer to the order Ephemeroptera. Dipteran refers to aquatic blackflies. 
+                                                            Terrestrial refers to non-aquatic terrestrial flies. Other refers to any insect that does not 
+                                                            follow into the categories above, such as Hymenopterans, Neuroptera, Coleoptera, etc."),
                                                    checkboxGroupInput(
                                                      inputId = "shedInput",
                                                      label = "Choose a watershed",
@@ -181,7 +197,7 @@ ui <- fluidPage(theme = shinytheme("cerulean"),
                                                      selected = "6",
                                                      inline = TRUE
                                                    ),
-                                                   helpText("This app utilizes plotly, an interactive plotting program, to visualize to data. 
+                                                   helpText("This app utilizes Plotly, an interactive plotting program, to visualize to data. 
                                                             Icons in the top right corner offers users the ability to capture photos of data, zoom in, and return to original display.
                                                             Other elements on the graph it self, such as legends, can provide further information and displays for the user upon clicking or hovering,
                                                             to return to the original view, click the home button on the top left corner.")
@@ -203,11 +219,15 @@ ui <- fluidPage(theme = shinytheme("cerulean"),
                                                               label = "Select Bug Type:",
                                                               choices = c("Stoneflies" = "stonefly_large", 
                                                                           "Caddisflies" = "caddisfly", 
-                                                                          "Terrestrial" = "terrestrial",
                                                                           "Mayflies" = "mayfly_large", 
                                                                           "Dipteran" = "dipteran",
+                                                                          "Terrestrial" = "terrestrial",
                                                                           "Other" = "other"),
                                                               selected = "stonefly_large"),
+                                           helpText("Stoneflies refer to the order Plecoptera. Caddisflies refer to the order Trichoptera.
+                                                            Mayflies refer to the order Ephemeroptera. Dipteran refers to aquatic blackflies. 
+                                                            Terrestrial refers to non-aquatic terrestrial flies. Other refers to any insect that does not 
+                                                            follow into the categories above, such as Hymenopterans, Neuroptera, Coleoptera, etc."),
                                            checkboxGroupInput(
                                              inputId = "shedInput2",
                                              label = "Choose a watershed",
@@ -215,7 +235,7 @@ ui <- fluidPage(theme = shinytheme("cerulean"),
                                              selected = "6",
                                              inline = TRUE
                                            ),
-                                           helpText("This app utilizes plotly, an interactive plotting program, to visualize to data. 
+                                           helpText("This app utilizes Plotly, an interactive plotting program, to visualize to data. 
                                                             Icons in the top right corner offers users the ability to capture photos of data, zoom in, and return to original display.
                                                             Other elements on the graph it self, such as legends, can provide further information and displays for the user upon clicking or hovering,
                                                             to return to the original view, click the home button on the top left corner.")
@@ -327,8 +347,10 @@ server <- function(input, output) {
       ) +
       theme(axis.text.x = element_text(angle = 45, hjust = 1))
     
-    ggplotly(BugCountPlot)
-        # Rotate x-axis labels
+ggplotly(BugCountPlot)
+ 
+
+        
   })
   #making emergence plot
   output$EmergencePlot <- renderPlotly({
@@ -357,11 +379,13 @@ server <- function(input, output) {
     bug_max <- ggplot(max_bugs_per_year, aes(x = Year, y = DayOfYear, size = BugCount, color = watershed)) +
       geom_point(alpha = 0.7) +
       scale_y_continuous(name = "Day of Year") +
-      scale_x_continuous(name = "Year", breaks = 2018:2024, limits = c(2018, 2024)) +
+      scale_x_continuous(name = "Year", breaks = 2018:2024, limits = c(2018, 2024))  +
       labs(
-        title = "Maximum Number of Bugs Each Year by Watershed",
+        title = "Maximum Number Each Year by Watershed",
+        caption = "Size of point denotes magnitude of count.", ##does not work
         size = "Max Bugs",
-        color = "Watershed"
+        color = "Watershed",
+        
       ) +
       theme_minimal() +
       theme(
@@ -373,12 +397,17 @@ server <- function(input, output) {
         legend.title = element_text(size = 14),
         legend.text = element_text(size = 12)
       ) +
-      guides(size = guide_legend(size = guide_legen("BugCount")), color = guide_legend("watershed"))
+      guides(size = guide_legend(size = guide_legen("BugCount")), color = guide_legend("watershed")) #does not work
  
 plotly_bug_max <- ggplotly(bug_max)
 
-plotly_bug_max
- 
+plotly_bug_max %>% layout(margin = list(l = 50, r = 50, b = 100, t = 50),
+                          annotations = list(x = 1, y = -0.3, text = "Note: size of point indicate magnitude of count.",
+                                             xref='paper', yref='paper', showarrow = F, 
+                                             xanchor='right', yanchor='auto', xshift=5, yshift=5,
+                                             font = list(size = 10)))
+
+
   })
 }
 
