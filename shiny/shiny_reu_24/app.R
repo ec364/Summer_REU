@@ -15,6 +15,7 @@ library(lubridate)
 library(shinyWidgets)
 library(plotly)
 
+
 # Load all necessary data.
 df <- trees # using a built-in R dataset of cherry trees
 sticky <- read_csv("data_raw/sticky_trap_counts.csv")
@@ -43,7 +44,7 @@ stickysum <- sticky2 %>% ##count grouped by date and watershed
 #### User Interface ####
 
 # More shiny themes available at https://rstudio.github.io/shinythemes/
-ui <- fluidPage(theme = shinytheme("cerulean"),
+ui <- fluidPage(theme = shinytheme("sandstone"),
                 
                 # App title
                 div(style = "text-align: center;",
@@ -92,7 +93,7 @@ ui <- fluidPage(theme = shinytheme("cerulean"),
                                     
                                     fluidRow(
                                       
-                                      column(width = 4, # image + caption will take up 4/12 of page
+                                      column(width = 5, # image + caption will take up 4/12 of page
                                              
                                            tags$img(src = "nutrients2.png",
                                                     width = "75%"), # edits image size only
@@ -223,7 +224,7 @@ ui <- fluidPage(theme = shinytheme("cerulean"),
                                                # prints plot generated in server
                                                mainPanel(
                                                 
-                                                 plotlyOutput("stoneflyPlot", width = "800px", height = "500px")      
+                                                 plotlyOutput("stoneflyPlot", width = "900px", height = "600px")      
                                       )
                                       )
                                       ), # closes plot tab - DO NOT DELETE
@@ -260,7 +261,7 @@ ui <- fluidPage(theme = shinytheme("cerulean"),
                                          
                                          # prints plot generated in server
                                          mainPanel(
-                                           plotlyOutput("EmergencePlot", width = "800px", height = "500px")      
+                                           plotlyOutput("EmergencePlot", width = "900px", height = "600px")      
                                          )
                                        ) ),
                                       
@@ -398,7 +399,6 @@ ggplotly(BugCountPlot)
       scale_x_continuous(name = "Year", breaks = 2018:2024, limits = c(2018, 2024))  +
       labs(
         title = "Maximum Number Each Year by Watershed",
-        caption = "Size of point denotes magnitude of count.", ##does not work
         size = "Max Bugs",
         color = "Watershed",
         
@@ -418,7 +418,7 @@ ggplotly(BugCountPlot)
 plotly_bug_max <- ggplotly(bug_max)
 
 plotly_bug_max %>% layout(margin = list(l = 50, r = 50, b = 100, t = 50),
-                          annotations = list(x = 1, y = -0.3, text = "Note: size of point indicate magnitude of count.",
+                          annotations = list(x = 1, y = -0.3, text = "Note: Size of point indicate magnitude of count.",
                                              xref='paper', yref='paper', showarrow = F, 
                                              xanchor='right', yanchor='auto', xshift=5, yshift=5,
                                              font = list(size = 10)))
