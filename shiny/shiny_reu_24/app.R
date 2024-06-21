@@ -26,6 +26,20 @@ sticky2 <- sticky %>%
          terrestrial = terrestrial_large + terrestrial_small,
          caddisfly = caddisfly_large + caddisfly_small,
          other = other_large + other_small)
+
+stickysum <- sticky2 %>% ##count grouped by date and watershed 
+  select(sample_id, side_or_trapnum, watershed, date, dipteran, terrestrial, caddisfly, other, mayfly_large, stonefly_large) %>% 
+  group_by(date, watershed) %>% 
+  summarize(
+    dipteranSum = sum(dipteran, na.rm = TRUE),
+    terrestrialSum = sum(terrestrial, na.rm = TRUE),
+    caddisflySum = sum(caddisfly, na.rm = TRUE),
+    otherSum = sum(other, na.rm = TRUE),
+    mayflySum = sum(mayfly_large, na.rm = TRUE),
+    stoneflySum = sum(stonefly_large, na.rm = TRUE),
+    .groups = 'drop'
+  )
+
 #### User Interface ####
 
 # More shiny themes available at https://rstudio.github.io/shinythemes/
@@ -217,13 +231,13 @@ ui <- fluidPage(theme = shinytheme("cerulean"),
                                          sidebarPanel(
                                            awesomeRadio(inputId = "bugType2", 
                                                               label = "Select Bug Type:",
-                                                              choices = c("Stoneflies" = "stonefly_large", 
-                                                                          "Caddisflies" = "caddisfly", 
-                                                                          "Mayflies" = "mayfly_large", 
-                                                                          "Dipteran" = "dipteran",
-                                                                          "Terrestrial" = "terrestrial",
-                                                                          "Other" = "other"),
-                                                              selected = "stonefly_large"),
+                                                              choices = c("Stoneflies" = "stoneflySum", 
+                                                                          "Caddisflies" = "caddisflySum", 
+                                                                          "Mayflies" = "mayflySum", 
+                                                                          "Dipteran" = "dipteranSum",
+                                                                          "Terrestrial" = "terrestrialSum",
+                                                                          "Other" = "otherSum"),
+                                                              selected = "Dipteran_Sum"),
                                            helpText("Stoneflies refer to the order Plecoptera. Caddisflies refer to the order Trichoptera.
                                                             Mayflies refer to the order Ephemeroptera. Dipteran refers to aquatic blackflies. 
                                                             Terrestrial refers to non-aquatic terrestrial flies. Other refers to any insect that does not 
@@ -354,15 +368,15 @@ ggplotly(BugCountPlot)
   })
   #making emergence plot
   output$EmergencePlot <- renderPlotly({
-    sticky3 <- sticky2 %>%
+    sticky3 <- stickysum %>%
       mutate(
-        Year = year(date),
-        DayOfYear = yday(date)
+        Year = year(date), #gives columns year 
+        DayOfYear = yday(date) #gives column day of year
       )
     
     filtered_data <- sticky3 %>%
       filter(
-        watershed %in% input$shedInput2
+        watershed %in% input$shedInput2 #looking in the watershed selected 
       )
     
     max_bugs_per_year <- filtered_data %>%

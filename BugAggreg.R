@@ -5,6 +5,7 @@ library(tidyverse)
 library(viridis)
 library(bslib)
 library(lubridate)
+library(tibbletime)
 
 ####Load in Data Sets and Packages
 sticky <- read.csv("shiny/shiny_reu_24/data_raw/sticky_trap_counts.csv")
@@ -137,3 +138,97 @@ ggplot(max_bugs_per_year, aes(x = Year, y = DayOfYear, size = MaxBugs, color = w
     legend.text = element_text(size = 12)
   )
 
+str(chemical)
+
+chemical %>% 
+  mdy(date)
+
+str(chemical)
+
+  filter(site == "W1" | site == "W2" | site == "W3" | site == "W4" | site == "W4" | site == "W5"
+         | site == "W6"| site == "W9" | site == "HBK") %>% 
+  filter(between(date, as.Date("12/31/17"), as.Date("12/31/23")))
+
+chemicalSheds
+
+
+chemicalSheds %>% 
+  ggplot(
+    aes(x = Date, y = temp, color = site)
+  ) +
+  geom_point()
+
+# Convert to Date format
+chemicalSheds$dates_converted <- mdy(chemicalSheds$date)
+chemicalSheds$dates_converted
+# Format dates to mm/dd/yyyy
+chemicalSheds$formatted_dates <- format(chemicalSheds$dates_converted, "%m/%d/%Y")
+
+chemicalSheds <- data.frame(
+  original_dates = chemicalSheds$dates,
+  converted_dates = chemicalSheds$formatted_dates,
+  pH = chemicalSheds$pH,
+  temp = chemicalSheds$temp,
+  site = chemicalSheds$site
+)
+
+unique(chemicalSheds$site)
+str(chemicalSheds)
+
+chemicalShedsDate <- chemicalShedsDate %>% 
+  year(chemicalShedsDate$original_dates)
+
+  filter(original_dates > "2017-12-31") 
+
+str(chemicalShedsDate) 
+unique(chemicalShedsDate$original_dates)
+
+str(chemicalShedsDate)
+chemicalSheds$year <- year(chemicalSheds$converted_dates)
+print(chemicalShedsDate$year)
+colnames(sticky)
+sticky %>% ###total bug count
+  summarise(totalBug = sum(dipteran_large, na.rm = TRUE) + sum(dipteran_small, na.rm = TRUE)
+            + sum(terrestrial_large, na.rm = TRUE)
+            + sum(caddisfly_large, na.rm = TRUE)
+            + sum(mayfly_large, na.rm = TRUE)
+            + sum(stonefly_large, na.rm = TRUE)
+            + sum(other_large, na.rm = TRUE)
+            + sum(dipteran_small, na.rm = TRUE)
+            + sum(terrestrial_small, na.rm = TRUE)
+            + sum(caddisfly_small, na.rm = TRUE)
+            + sum(other_small, na.rm = TRUE))
+###summing by date 
+sticky2 <- sticky %>% 
+  mutate(dipteran = dipteran_large + dipteran_small,
+         terrestrial = terrestrial_large + terrestrial_small,
+         caddisfly = caddisfly_large + caddisfly_small,
+         other = other_large + other_small)
+
+stickysum <- sticky2 %>% ##count grouped by date and watershed 
+  select(sample_id, side_or_trapnum, watershed, date, dipteran, terrestrial, caddisfly, other, mayfly_large, stonefly_large) %>% 
+  group_by(date, watershed) %>% 
+  summarize(
+    dipteranSum = sum(dipteran, na.rm = TRUE),
+    terrestrialSum = sum(terrestrial, na.rm = TRUE),
+    caddisflySum = sum(caddisfly, na.rm = TRUE),
+    otherSum = sum(other, na.rm = TRUE),
+    mayflySum = sum(mayfly_large, na.rm = TRUE),
+    stoneflySum = sum(stonefly_large, na.rm = TRUE),
+    .groups = 'drop'
+  )
+
+stickysum %>% 
+  mutate(
+    Year = year(date),
+    DayOfYear = yday(date)
+  ) %>% 
+  group_by(Year, watershed) %>% 
+  summarize(
+    maxdip = max(dipteranSum),
+    .groups = 'drop'
+  )
+  
+
+
+  
