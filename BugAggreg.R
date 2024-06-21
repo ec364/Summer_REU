@@ -229,6 +229,26 @@ stickysum %>%
     .groups = 'drop'
   )
   
+#testing to see if app works
+sticky3 <- stickysum %>%
+  mutate(
+    Year = year(date), #gives columns year 
+    DayOfYear = yday(date) #gives column day of year
+  )
 
+#user chooses watershed 6
+filtered_data <- sticky3 %>%
+  filter(
+    watershed == "6" #looking in the watershed selected 
+  )
 
+##user chooses diptera
+
+max_bugs_per_year <- filtered_data %>%
+  group_by(Year, watershed) %>%
+  summarise(
+    BugCount = max(dipteranSum, na.rm = TRUE),
+    DayOfYear = DayOfYear[which.max(dipteranSum)]
+  ) %>%
+  ungroup()
   

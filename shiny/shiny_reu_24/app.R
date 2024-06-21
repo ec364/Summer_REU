@@ -237,7 +237,7 @@ ui <- fluidPage(theme = shinytheme("cerulean"),
                                                                           "Dipteran" = "dipteranSum",
                                                                           "Terrestrial" = "terrestrialSum",
                                                                           "Other" = "otherSum"),
-                                                              selected = "Dipteran_Sum"),
+                                                              selected = "dipteranSum"),
                                            helpText("Stoneflies refer to the order Plecoptera. Caddisflies refer to the order Trichoptera.
                                                             Mayflies refer to the order Ephemeroptera. Dipteran refers to aquatic blackflies. 
                                                             Terrestrial refers to non-aquatic terrestrial flies. Other refers to any insect that does not 
