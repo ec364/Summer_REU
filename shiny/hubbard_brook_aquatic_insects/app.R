@@ -72,7 +72,7 @@ ui <- fluidPage(theme = shinytheme("sandstone"),
                       # Output: set of 4 tabs
                       tabsetPanel(type = "tabs",
                                       
-                              #### Introduction tab ####        
+                              ##### Introduction tab #####        
                               tabPanel("Introduction",
                                        
                                   h3("What is Aquatic Insect Emergence and Why is it Important?"),
@@ -88,7 +88,7 @@ ui <- fluidPage(theme = shinytheme("sandstone"),
                                           
                                          #this is the start to a new paragraph 
                                           p(class = "indented-paragraph", 
-                                          "Since the emergence of aquatic insects is an essential resource pulse for consumers such as other insects, birds, and mammals, changes in the emergence patterns of aquatic insects can threaten the availability of quality food sources in the ecosystem. Shifts in water temperatures, chemistry, and velocity can all impact the size, quantity, and time frame in which insects emerge", tags$a(href = "https://conbio.onlinelibrary.wiley.com/doi/10.1111/cobi.13477", "(Baranov et al., 2020;"), tags$a(href = "https://pnas.org/doi/10.1073/pnas.2310513121", " Leathers et al., 2024;"), tags$a(href = "https://linkinghub.elsevier.com/retrieve/pii/S0960982222001191", "Shipley et al., 2022)."), "These changes can result in a phenological mismatch between the emergence of aquatic insects and their terrestrial predators, leading to an overall decrease in the transfer of nutrients to the terrestrial ecosystem. One such nutrient is essential fatty acids that can only be found in aquatic insects, who accumulate the fatty acids from their algae rich diets", tags$a(href = "https://linkinghub.elsevier.com/retrieve/pii/S0960982222001191", "(Shipley et al., 2022)."), "Since these fatty acids can be crucial for the development of some terrestrial predators, the misalignment between insect life cycles and terrestrial predators can lead to an overall decrease in survival fitness for some terrestrial species", tags$a(href = "https://linkinghub.elsevier.com/retrieve/pii/S0960982222001191", "(Shipley et al., 2022)."))
+                                          "Since the emergence of aquatic insects is an essential resource pulse for consumers such as other insects, birds, and mammals, changes in the emergence patterns of aquatic insects can threaten the availability of quality food sources in the ecosystem. Shifts in water temperatures, chemistry, and velocity can all impact the size, quantity, and time frame in which insects emerge", tags$a(href = "https://conbio.onlinelibrary.wiley.com/doi/10.1111/cobi.13477", "(Baranov et al., 2020;"), tags$a(href = "https://pnas.org/doi/10.1073/pnas.2310513121", " Leathers et al., 2024;"), tags$a(href = "https://linkinghub.elsevier.com/retrieve/pii/S0960982222001191", "Shipley et al., 2022)."), "These changes can result in a phenological mismatch between the emergence of aquatic insects and their terrestrial predators, leading to an overall decrease in the transfer of nutrients to the terrestrial ecosystem. One such nutrient is essential fatty acids that are found in much higher concentrations in aquatic insects, who accumulate the fatty acids from their algae rich diets", tags$a(href = "https://linkinghub.elsevier.com/retrieve/pii/S0960982222001191", "(Shipley et al., 2022)."), "Since these fatty acids can be crucial for the development of some terrestrial predators, the misalignment between insect life cycles and terrestrial predators can lead to an overall decrease in survival fitness for some terrestrial species", tags$a(href = "https://linkinghub.elsevier.com/retrieve/pii/S0960982222001191", "(Shipley et al., 2022)."))
                                          ), # closes column containing text only
                                     
                                     fluidRow(
@@ -97,7 +97,7 @@ ui <- fluidPage(theme = shinytheme("sandstone"),
                                              
                                            tags$img(src = "nutrients2.png",
                                                     width = "75%"), # edits image size only
-                                           tags$figcaption("Figure 1: This figure demonstrates differences in nutritional content by aquatic vs terrestrial insect emergence. The availability of eicosapentaenoic acid (EPA), a type of polyunsaturated fatty acid (PUFA), is far greater in aquatic than terrestrial insects. Source: Shipley et al 2022. ")
+                                           tags$figcaption("Figure 1: This figure demonstrates differences in nutritional content by aquatic vs terrestrial insect emergence. The availability of eicosapentaenoic acid (EPA), a type of polyunsaturated fatty acid (PUFA), is far greater in aquatic than terrestrial insects. Source: ", tags$a(href = "https://linkinghub.elsevier.com/retrieve/pii/S0960982222001191", "Shipley et al 2022"), ".")
                                            
                                            )
                                       
@@ -112,68 +112,51 @@ ui <- fluidPage(theme = shinytheme("sandstone"),
                                     column(width = 6, # image + caption will take up 5/12 of the page
                                            tags$img(src = "Watershed_Location.png", 
                                                      width = "80%"), # edits image size only
-                                           tags$figcaption("Figure 2: This map shows the location of watersheds in which sticky traps are set (denoted in yellow). Source: Edwards, 2022, Adapted from Holmes & Liken, 1999.")
+                                           tags$figcaption("Figure 2: This map shows the location of watersheds in which sticky traps are set (denoted in yellow) as part of the larger Hubbard Brook watershed. Source: Edwards, 2022, Adapted from ", tags$a(href = "https://www.fs.usda.gov/treesearch/pubs/3801", "Holmes & Likens, 1999"), ".")
                                            
                                            ),
                                     
                                     column(width = 6, # text will extend 6/12 of the page
                                            
                                           p(class = "indented-paragraph", 
-                                          "Located in the White Mountains of New Hampshire, the Hubbard Brook Experimental Forest has been the host
-                                          site of continuous water chemistry monitoring since 1963 (Edwards, 2022). In 2018, researchers began 
-                                          collecting the sticky traps records of aquatic insects above eight different streams in the Hubbard Brook
-                                          Experimental Forest. Five double sided sticky traps collected weekly were attached to a tree branch in a
-                                          20m long section next to a stream. These traps were set in watersheds labeled 1, 2 , 3, 4, 5, 6, 9, 
-                                          and Hubbard Brook (Edwards, 2022). Researchers at the site have carried out numerous treatments to the 
-                                          forest and its watersheds to study the impacts on the overall ecosystem. Watershed 1 was exposed to a 
-                                          calcium treatment in 1999 to counteract decreases in soil pH resulting from acid rain, (Likens, 2013). 
-                                          Watersheds 2, 3, and 4 were exposed to varying levels of deforestation in different time intervals ranging 
-                                          from 1965-1984. Watershed 3 serves as a hydrological control watershed and watershed 6 serves as a 
-                                          biogeochemical reference site (Likens, 2013). Watershed 9 has not been exposed to any experiments. Each trap 
-                                          site was located in a different watershed in the forest, and hence exposed to the unique spatial landscapes on each watershed. The data collected by the sticky traps as well as the continuous chemical and physical sampling in Hubbard Brook can help reveal how the distinct environmental traits of each site lead to changes in aquatic insect emergence.")
+                                          "Located in the White Mountains of New Hampshire, the Hubbard Brook Experimental Forest has been the host site of continuous water chemistry monitoring since 1963 ", tags$a(href = "https://www.fs.usda.gov/treesearch/pubs/3801", "(Holmes & Likens, 1999)"), ". In 2018, researchers began sticky trap records of aquatic insects above eight different streams in the Hubbard Brook Experimental Forest. Five double-sided sticky traps collected weekly are attached to a tree branch in a 20m long section next to a stream. These traps are set in watersheds 1, 2, 3, 4, 5, 6, 9, and the mainstem of Hubbard Brook (Edwards, 2022). Prior to this aquatic insect study, researchers at Hubbard Brook have carried out numerous treatments to the forest and its watersheds to study the impacts on the overall ecosystem. Watershed 1 was exposed to a calcium treatment in 1999 to counteract decreases in soil pH resulting from acid rain ", tags$a(href = "https://doi.org/10.1007/978-1-4614-7810-2", "(Likens, 2013)"), ". Watersheds 2, 3, and 4 were exposed to varying levels of deforestation in different time intervals ranging from 1965-1984. Watershed 3 serves as a hydrological control watershed, and watershed 6 serves as a biogeochemical reference site ", tags$a(href = "https://doi.org/10.1007/978-1-4614-7810-2", "(Likens, 2013)"), ". Watershed 9 has not been exposed to any experiments. Each sticky trap site was located in a different watershed in the forest, and hence exposed to the unique spatial landscapes in each watershed. The data collected by the sticky traps as well as the continuous chemical and physical sampling in Hubbard Brook can help reveal how the distinct environmental traits of each site lead to changes in aquatic insect emergence.")
                                           
                                           )
                                     
                                     ),
                                   
-                                  h4("Please see the Works Cited tab for complete references."),
+                                  h5("Please see the Works Cited tab for complete references."),
+                                  
+                                  br(),
+                                  
+                                  h3("Dashboard created by Erin Chen in June 2024.",
+                                     align = "center"),
+                                  
+                                  h3("For questions pertaining to this dataset, contact Heili Lowman at heili.lowman@duke.edu.",
+                                     align = "center")
                                   
                                   ), # closes out introduction tab - CHECK TO BE SURE
                                       
                               ### at a glance tab
                               
 
-                                      #### Methods tab ####
+                                      ##### Methods tab #####
                                       tabPanel("Methods", 
                                                h3("In field collection"),
                                                fluidRow(
                                                  column(width = 7, 
-                                                        p(class = "indented-paragraph", "Insect collection began in April 2018 (Edwards, 2022). Insects 
-                                               are collected weekly on double sided 4” x 7” sticky traps from watersheds labeled 1, 2, 3, 4, 5, 6, 9,
-                                               and Hubbard Brook (Edwards, 2022). At each collection site, five sticky traps were spread across a 
-                                               20m long section. The traps were attached to tree branches along a stream in each 
-                                               watershed (Edwards, 2022). The sticky traps are set out after ice melts each year (around March or April)
-                                               collection ends when traps are found to be sparsely filled (November or December). Once collected, 
-                                               sticky traps were placed inside a plastic page protector and shipped to the Bernhardt Lab for identification."),
+                                                        p(class = "indented-paragraph", "Insect collection began in April 2018 (Edwards, 2022). Insects are collected weekly on double sided 4” x 7” sticky traps from watersheds labeled 1, 2, 3, 4, 5, 6, 9, and Hubbard Brook (Edwards, 2022). At each collection site, five sticky traps are spread across a 20m long section. The traps are attached to tree branches along a stream in each watershed (Figure 3, Edwards, 2022). The sticky traps are set out after snowmelt each year (around March or April), and collection ends when traps are found to be sparsely filled (typically November or December). Once collected, sticky traps are placed inside a plastic page protector and shipped to the Bernhardt Lab at Duke University for identification."),
                                                         ),
                                                    column(width = 4,
                                                           tags$img(src = "trap_location.png", width = "80%", height = "80%"),
-                                                          tags$figcaption("Figure 3: Sticky Traps employed in the field. Double sided traps are laid out in a 20m long strip along the stream to 
-                                                          capture emerging insects. Source: Edwards, 2022.")
+                                                          tags$figcaption("Figure 3: Sticky traps employed in the field. Double-sided traps are laid out in a 20m long strip along the stream to capture emerging insects. Source: Edwards, 2022.")
                                                           )
                                                  
                                                ),
                                                h3("Insect Identification"),
                                                fluidRow(
                                                  column(width = 7,
-                                                        p(class = "indented-paragraph", "At the Bernhardt Lab, insects were identified using dissecting 
-                                                microscopes and a color coding system (Edwards, 2022). Insects were labeled by the categories: 
-                                                 Terrestrial Diptera, Aquatic Diptera, Caddisflies, Mayflies, Stoneflies, or Other. Insects 
-                                                 were also labeled for their size, with “Small” insects composing of bodies less than 5mm 
-                                                 and “Large” insects composing of bodies greater than 5mm. Marks were made directly on the sheet
-                                                 , with different colors representing different orders and different shapes (dash or circle) 
-                                                 representing different sizes. Count of each order and size is tallied up and marked on the side
-                                                 of the paper protector. Information about each trap was uploaded to the hbwater database.")),
+                                                        p(class = "indented-paragraph", "At the Bernhardt Lab, insects are identified using dissecting microscopes and a color coding system (Figure 4, Edwards, 2022). Insects are labeled into the following categories: Terrestrial Diptera, Aquatic Diptera, Caddisflies, Mayflies, Stoneflies, or Other. Insects are also labeled for their size, with “Small” insects composed of bodies less than 5mm and “Large” insects composed of bodies greater than 5mm. Marks are made directly on the plastic page protector sheet, with different colors representing different orders and different shapes (dash or circle) representing different sizes. Counts of each order and size are tallied up and marked on the side of the paper protector. Information about each trap is then uploaded to the hbwater database.")),
                                                  column(width = 4,
                                                         tags$img(src = "annotated_trap.png", width = "50%", height = "40%"),
                                                         tags$figcaption("Figure 4: An example of a sticky trap after annoation. Dashes and circles denote size of insect. Color of annotation represents order. Count of insects by order and size on the right. Photo taken by Erin Chen.")
@@ -182,20 +165,22 @@ ui <- fluidPage(theme = shinytheme("sandstone"),
                                       ), 
                                   
                                       
-                                      #### Plotting tab ####
+                                      ##### Plotting tab #####
                                       tabPanel("Insect Count Over Time",
                                       #inserting a slider for year
                                                sidebarLayout(
                                                  sidebarPanel(
+                                                   p("This application utilizes Plotly, an interactive plotting program, to visualize the data. Icons in the top right corner offer users the ability to capture photos of data (camera icon), zoom in (plus icon), and return to the original display (home icon). Other elements on the graph itself, such as legends, can provide further information and displays for the user upon clicking or hovering. To return to the original view, click the home button on the top left corner or double click anywhere."),
+                                                   
                                                    dateRangeInput("timeRange", 
-                                                                  label = h3("Date range"),
+                                                                  label = "Select date range:",
                                                                   min = as.Date("2018-01-01","%Y-%m-%d"),
                                                                   max = as.Date("2023-12-31","%Y-%m-%d"),
                                                                   start = as.Date("2018-01-01","%Y-%m-%d"),
                                                                   end = as.Date("2023-12-31","%Y-%m-%d")
                                                                   ),
                                                    checkboxGroupInput("bugType", 
-                                                               "Select Bug Type:",
+                                                               label = "Select insect type (sum total):",
                                                                choices = c("Stoneflies" = "stonefly_large", 
                                                                            "Caddisflies" = "caddisfly", 
                                                                            "Mayflies" = "mayfly_large", 
@@ -203,21 +188,14 @@ ui <- fluidPage(theme = shinytheme("sandstone"),
                                                                            "Terrestrial" = "terrestrial",
                                                                            "Other" = "other"),
                                                                selected = "stonefly_large"),
-                                                   helpText("Stoneflies refer to the order Plecoptera. Caddisflies refer to the order Trichoptera.
-                                                            Mayflies refer to the order Ephemeroptera. Dipteran refers to aquatic blackflies. 
-                                                            Terrestrial refers to non-aquatic terrestrial flies. Other refers to any insect that does not 
-                                                            follow into the categories above, such as Hymenopterans, Neuroptera, Coleoptera, etc."),
+                                                   helpText("Stoneflies refer to the order Plecoptera. Caddisflies refer to the order Trichoptera. Mayflies refer to the order Ephemeroptera. Dipteran refers to aquatic blackflies. Terrestrial refers to non-aquatic terrestrial flies. Other refers to any insect that does not fall into the categories above, such as Hymenopterans, Neuroptera, Coleoptera, etc."),
                                                    checkboxGroupInput(
                                                      inputId = "shedInput",
-                                                     label = "Choose a watershed",
+                                                     label = "Choose a watershed (one or multiple):",
                                                      choices = c("1", "2", "3", "4", "5", "6","9", "Hubbard Brook"), #use filter in server: filter(column_name %in% list) %>%
                                                      selected = "6",
                                                      inline = TRUE
-                                                   ),
-                                                   helpText("This app utilizes Plotly, an interactive plotting program, to visualize to data. 
-                                                            Icons in the top right corner offers users the ability to capture photos of data, zoom in, and return to original display.
-                                                            Other elements on the graph it self, such as legends, can provide further information and displays for the user upon clicking or hovering,
-                                                            to return to the original view, click the home button on the top left corner.")
+                                                   )
                                                  ),
                                                 
                                                
@@ -228,12 +206,16 @@ ui <- fluidPage(theme = shinytheme("sandstone"),
                                       )
                                       )
                                       ), # closes plot tab - DO NOT DELETE
-                              ####plotting peak emergence tab####
+                              ##### Plotting Peak Emergence tab #####
                               tabPanel("Peak Emergence",
                                        sidebarLayout(
                                          sidebarPanel(
+                                           p("This application utilizes Plotly, an interactive plotting program, to visualize the data. Icons in the top right corner offer users the ability to capture photos of data (camera icon), zoom in (plus icon), and return to the original display (home icon). Other elements on the graph itself, such as legends, can provide further information and displays for the user upon clicking or hovering. To return to the original view, click the home button on the top left corner or double click anywhere."),
+                                           div(HTML("<em>Here, points are sized by magnitude of emergence, and legend point size indicates average magnitude.</em>")),
+                                           br(),
+                                           
                                            awesomeRadio(inputId = "bugType2", 
-                                                              label = "Select Bug Type:",
+                                                              label = "Select insect type (only one):",
                                                               choices = c("Stoneflies" = "stoneflySum", 
                                                                           "Caddisflies" = "caddisflySum", 
                                                                           "Mayflies" = "mayflySum", 
@@ -241,21 +223,14 @@ ui <- fluidPage(theme = shinytheme("sandstone"),
                                                                           "Terrestrial" = "terrestrialSum",
                                                                           "Other" = "otherSum"),
                                                               selected = "dipteranSum"),
-                                           helpText("Stoneflies refer to the order Plecoptera. Caddisflies refer to the order Trichoptera.
-                                                            Mayflies refer to the order Ephemeroptera. Dipteran refers to aquatic blackflies. 
-                                                            Terrestrial refers to non-aquatic terrestrial flies. Other refers to any insect that does not 
-                                                            follow into the categories above, such as Hymenopterans, Neuroptera, Coleoptera, etc."),
+                                           helpText("Stoneflies refer to the order Plecoptera. Caddisflies refer to the order Trichoptera. Mayflies refer to the order Ephemeroptera. Dipteran refers to aquatic blackflies. Terrestrial refers to non-aquatic terrestrial flies. Other refers to any insect that does not follow into the categories above, such as Hymenopterans, Neuroptera, Coleoptera, etc."),
                                            checkboxGroupInput(
                                              inputId = "shedInput2",
-                                             label = "Choose a watershed",
+                                             label = "Choose a watershed (one or multiple):",
                                              choices = c("1", "2", "3", "4", "5", "6","9", "Hubbard Brook"), #use filter in server: filter(column_name %in% list) %>%
                                              selected = "6",
                                              inline = TRUE
-                                           ),
-                                           helpText("This app utilizes Plotly, an interactive plotting program, to visualize to data. 
-                                                            Icons in the top right corner offers users the ability to capture photos of data, zoom in, and return to original display.
-                                                            Other elements on the graph it self, such as legends, can provide further information and displays for the user upon clicking or hovering,
-                                                            to return to the original view, click the home button on the top left corner.")
+                                           )
                                          ),
                                          
                                          
@@ -265,7 +240,7 @@ ui <- fluidPage(theme = shinytheme("sandstone"),
                                          )
                                        ) ),
                                       
-                                      #### ML Development tab ####
+                                      ##### ML Development tab #####
                                       tabPanel("Machine Learning",
                                                h3("What's happening"),
                                                p("Beginning in May 2024, the lab is looking into incorporating machine 
@@ -285,7 +260,7 @@ ui <- fluidPage(theme = shinytheme("sandstone"),
 
                                       
                                       
-                                      #### Works Cited tab ####
+                                      ##### Works Cited tab #####
                                       tabPanel("Works Cited",
                                                h4("Works Cited"),
                                                div(
@@ -300,7 +275,7 @@ ui <- fluidPage(theme = shinytheme("sandstone"),
                                                  p(class = "bibliography", "Schindler, D. E., & Smits, A. P. (2017). Subsidies of Aquatic Resources in Terrestrial Ecosystems. Ecosystems, 20(1), 78–93."
                                                    ,tags$a(href ="https://doi.org/10.1007/s10021-016-0050-7", "https://doi.org/10.1007/s10021-016-0050-7")),
                                                  p(class = "bibliography", "Shipley, J. R., Twining, C. W., Mathieu-Resuge, M., Parmar, T. P., Kainz, M., Martin-Creuzburg, D., Weber, C., Winkler, D. W., Graham, C. H., & Matthews, B. (2022). Climate change shifts the timing of nutritional flux from aquatic insects. Current Biology, 32(6), 1342-1349.e3." 
-                                                   , tags$a(href ="https://doi.org/10.1016/j.cub.2022.01.057", "https://doi.org/10.1016/j.cub.2022.01.057)"))
+                                                   , tags$a(href ="https://doi.org/10.1016/j.cub.2022.01.057", "https://doi.org/10.1016/j.cub.2022.01.057"))
                                                )
                                                
                                       ) # closes out final panel
@@ -315,6 +290,8 @@ ui <- fluidPage(theme = shinytheme("sandstone"),
 
 # Define server logic required to generate figures
 server <- function(input, output) {
+  
+  ##### Plotting tab #####
   
   # Creates plot for inclusion on plotting tab.
   output$stoneflyPlot <- renderPlotly({
@@ -342,8 +319,7 @@ server <- function(input, output) {
       group_by(Date, watershed) %>%
       # and finally sum all of the chosen insect counts, omitting NAs
       summarise(total_bug = sum(count, na.rm = TRUE)) %>%
-      ungroup() %>% 
-      mutate(month = month(Date))
+      ungroup()
     
     #plotting the graph 
     BugCountPlot <- agg_data %>% 
@@ -351,7 +327,8 @@ server <- function(input, output) {
       geom_line() +  
       labs(title = "Count of Insects in Hubbard Brook by Time",
            x = "Time Period",
-           y = "Insect Count") +
+           y = "Insect Count",
+           color = "Watershed") +
       theme_minimal() +
       theme(
         plot.title = element_text(size = 20, face = "bold"),  # Title font size
@@ -365,10 +342,11 @@ server <- function(input, output) {
       theme(axis.text.x = element_text(angle = 45, hjust = 1))
     
 ggplotly(BugCountPlot)
- 
-
         
   })
+  
+  ##### Plotting Peak Emergence tab #####
+  
   #making emergence plot
   output$EmergencePlot <- renderPlotly({
     sticky3 <- stickysum %>%
@@ -393,16 +371,14 @@ ggplotly(BugCountPlot)
     max_bugs_per_year <- max_bugs_per_year %>%
       filter(!is.na(DayOfYear))
    
-    bug_max <- ggplot(max_bugs_per_year, aes(x = Year, y = DayOfYear, size = BugCount, color = watershed)) +
+    bug_max <- ggplot(max_bugs_per_year, aes(x = Year, y = DayOfYear, 
+                                             color = watershed, size = BugCount)) +
       geom_point(alpha = 0.7) +
       scale_y_continuous(name = "Day of Year") +
       scale_x_continuous(name = "Year", breaks = 2018:2024, limits = c(2018, 2024))  +
-      labs(
-        title = "Maximum Number Each Year by Watershed",
-        size = "Max Bugs",
-        color = "Watershed",
-        
-      ) +
+      labs(title = "Maximum Number Each Year by Watershed",
+           color = "Watershed") +
+      guides(size = FALSE) + # suppresses size legend
       theme_minimal() +
       theme(
         plot.title = element_text(size = 20, face = "bold"),
@@ -412,29 +388,24 @@ ggplotly(BugCountPlot)
         axis.text.y = element_text(size = 12),
         legend.title = element_text(size = 14),
         legend.text = element_text(size = 12)
-      ) +
-      guides(size = guide_legend(size = guide_legen("BugCount")), color = guide_legend("watershed")) #does not work
+      )
  
 plotly_bug_max <- ggplotly(bug_max)
 
-plotly_bug_max %>% layout(margin = list(l = 50, r = 50, b = 100, t = 50),
-                          annotations = list(x = 1, y = -0.3, text = "Note: Size of point indicate magnitude of count.",
-                                             xref='paper', yref='paper', showarrow = F, 
-                                             xanchor='right', yanchor='auto', xshift=5, yshift=5,
-                                             font = list(size = 10)))
-
+plotly_bug_max %>% 
+  layout(margin = list(l = 50, r = 50, b = 100, t = 50),
+         annotations = list(x = 1, y = -0.3,
+                            text = "Note: Size of point indicate magnitude of count.",
+                            xref='paper', yref='paper', showarrow = F, 
+                            xanchor='right', yanchor='auto', xshift=5, yshift=5,
+                            font = list(size = 10)))
 
   })
 }
 
 #### Bind UI & Server ####
 
- 
-
 # Run the application 
 shinyApp(ui = ui, server = server)
 
 # End of script.
-
-
-
